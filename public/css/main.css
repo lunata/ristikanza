@@ -1,0 +1,277 @@
+@import url(buttons.css);
+@import url(fonts.css);
+@import url(forms.css);
+@import url(navigation.css);
+@import url(head.css);
+
+.container {
+    /*    height: 100vh;*/
+}
+
+.main {
+    padding-bottom: 6.5rem;
+}
+body {
+    font-family: 'Open Sans', sans-serif;
+    font-size: 0.9rem;
+}
+
+a,
+a:active,
+a:focus,
+a:hover
+a.toggled:not([href]):not([tabindex]) {
+    color: #3c65ad;
+    cursor: pointer;
+    text-decoration: underline;
+}
+
+.bg-primary {
+    background-color: #3c65ad  !important;
+}
+
+.user-name {
+    font-size: 1.1rem;
+    margin: 0 0 .2rem;
+    text-align: center;
+}
+
+h1 {
+    color: #e5210a;
+    font-size: 1.5rem; 
+    margin-bottom: 1rem;
+}
+
+h2 {
+    font-size: 1.3rem; 
+}
+
+h3 {
+    font-size: 1.1rem; 
+}
+
+h4 {
+    font-size: 0.9rem; 
+    font-weight: bold;
+    margin-top: 20px;
+}
+
+.warning {
+    color: #e5210a;
+}
+
+strong:first-letter, 
+th:first-letter {
+    text-transform: uppercase;
+}
+
+strong {
+    font-weight: bold; 
+}
+
+big, .big {
+    font-size:1.2rem;
+}
+
+.table-striped tbody tr:nth-of-type(2n+1) {
+    background-color: #f2f9fd;
+}
+
+.found-new {
+    display: flex;
+    justify-content: space-between;
+}
+
+.link-button {
+    background-color: #48a66d;
+    color: rgba(255,255,255,.8);
+    line-height: 2rem;
+    padding: 0 0.5rem;
+    text-decoration: none;    
+    text-transform: uppercase;
+}
+
+.link-button:active,
+.link-button:focus,
+.link-button:hover {
+    color: #fff;
+    text-decoration: none;    
+}
+
+.card-header {
+    background-color: #3c65ad;
+    color: #fff;
+    font-size: 1.2rem;
+    text-transform: uppercase;
+}
+
+.form-b {
+    background-color: #f2f9fd/*f5f7f9*/;
+    padding: 1.2rem 1.2rem .2rem;
+}
+
+.margin-in-form {
+    margin-top: 50px;
+}
+
+.to-right {
+    text-align: right;
+}
+
+.up,
+.down {
+    text-decoration: none;
+    color: #666;
+    position: relative;
+    top:-1px;
+}
+
+.up:hover,
+.down:hover {
+    color: #e5210a;
+    text-decoration: none;
+}
+
+.col-compact {
+    padding-left: 5px;
+    padding-right: 5px;
+}
+
+.row .col-compact:first-child {
+    padding-left: 15px;
+}
+
+.col-compact .form-group {
+  margin-bottom: 0;
+}
+
+.row .col-compact:last-child {
+    padding-right: 15px;
+}
+
+.col-compact .form-control {
+    padding-left: 0.4rem;
+    padding-right: 0.3rem;
+}
+
+.add-new-row {
+    color: #e5210a !important;
+    cursor: pointer;
+    display: block;
+    text-decoration: underline !important;
+    text-align: right;
+}
+
+.success {
+    color: #28a745;
+}
+
+.danger {
+    color: #e5210a;
+}
+
+.primary {
+    color: #007bff;
+}
+
+.clickable {
+    cursor: pointer;    
+}
+
+.clickable:hover,
+a.clickable:not([href]):not([tabindex]):hover{
+    text-decoration: underline;    
+}
+
+.call-add {
+    color: #3c65ad;
+    cursor: pointer;
+}
+
+del {
+    color: red;
+}
+
+del span {
+    color: #212529;
+}
+
+footer {
+    background-color: #c3cfd7;
+    color: #fff;
+    padding: 20px 0;
+    text-align: center;
+}
+
+.new-doc {
+    padding-right: 20px;
+    position: relative;
+}
+
+.new-doc:before {
+    content: url('/img/icons/lightning.png');
+    height: 16px;
+    margin-top: -8px;
+    position: absolute;
+    right: 0;
+    top: 50%;
+    width: 16px;    
+}
+
+.invisible {
+    display: none;
+}
+
+.error {
+    color: #e5210a;
+}
+
+i.checked {
+  display: inline-block;
+  width: 15px;
+  height: 30px;
+  margin: -3px 10px 3px;
+  border: solid red;
+  border-width: 0 5px 5px 0;
+  transform: rotate( 45deg);
+}
+
+.div-hatch {
+  width: 200px;
+  height: 200px;
+  background: repeating-linear-gradient(
+    -45deg,            /* угол наклона штриховки */
+    #ddd 0,           /* цвет первой линии */
+    #ddd 1px,         /* толщина линии */
+    transparent 2px,  /* прозрачный промежуток */
+    transparent 6px   /* расстояние до следующей линии */
+  );
+}
+@media (min-width: 576px) {
+  .modal-dialog {
+    max-width: 576px;
+  }
+}
+
+@media (min-width: 992px) {
+    h1 {
+        font-size: 2rem;    
+    }
+    
+    h2 {
+        font-size: 1.7rem;    
+    }
+    
+    h3 {
+        font-size: 1.4rem;    
+    }
+    
+    h4 {
+        font-size: 1.1rem;    
+    }
+    
+    .modal-lg {
+      max-width: 992px;
+    }
+}
+

@@ -1,0 +1,88 @@
+/* https://itchief.ru/bootstrap/list-group */
+
+.list-rectangle {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+    .list-rectangle>li {
+        position: relative;
+        display: block;
+        margin-bottom: .25rem;
+        padding: .325rem .825rem .325rem 1.325rem;
+        color: #fff;
+        background: #C2185B;
+    }
+    .list-rectangle>li:last-child {
+        margin-bottom: 0;
+    }
+    .list-rectangle>li::before {
+        content: "";
+        position: absolute;
+        left: 0;
+        top: 0;
+        bottom: 0;
+        width: 0.5rem;
+        background: #ec407a;
+    }
+    
+.list-counter-circle {
+    color: #48a66d;
+    font-size: 1.2rem;
+    list-style: none;
+    counter-reset: list;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+}
+    
+    .list-counter-circle a {
+        color: #48a66d;
+        text-decoration: none;
+    }
+
+    .list-counter-circle>li {
+        position: relative;
+        display: block;
+        height: 2.2rem;
+        line-height: 2rem;
+        margin-left: 1.75rem;
+        margin-bottom: .25rem;
+        padding-left: 1rem;
+        padding-right: .5rem;
+/*        color: #fff; */
+        background: #ebf6ef;
+        white-space: nowrap;
+        border-radius: .25rem
+    }
+    
+    .list-counter-circle>li:last-child {
+        margin-bottom: 0;
+    }
+
+    .list-counter-circle>li:hover {
+        background: #48a66d;
+        color: #ebf6ef;
+    }
+
+    .list-counter-circle>li:hover a {
+        color: #ebf6ef;
+    }
+    
+    .list-counter-circle>li::before {
+        content: counter(list);
+        counter-increment: list;
+        font-weight: bold;
+        position: absolute;
+        left: -2rem;
+        top: -.25rem;
+        bottom: -.25rem;
+        width: 2.5rem;
+        line-height: 2.2rem;
+        border-radius: 1.25rem;
+        border: .25rem solid #fff;
+        text-align: center;
+        color: #ebf6ef; 
+        background: #48a66d;
+    }    
+    

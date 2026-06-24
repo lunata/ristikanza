@@ -1,0 +1,101 @@
+#header {
+    padding: 20px 0;
+    text-align: center;
+}
+
+.site-title {
+    font-size: 1.8rem;
+    line-height: 2rem;
+    padding: 20px 0;
+}
+
+#header img {
+/*    max-height: 100px;*/
+}
+
+.bvi-open .fa {
+    float: left;
+    padding-right: 5px;
+    font-size: 1.2rem;
+}
+
+@media screen and (max-width: 395px) {    
+}
+
+@media screen and (min-width: 399px) {    
+/*    .logo img {
+        width: 300px;
+    }
+    .user-menu {
+        font-size: 12px;
+    }
+    .user-enter-input > div {
+        width: 49%;
+    }
+    .user-enter-input > div:first-child {
+        margin-right: 2%;
+    }
+    .user-registr-submit .user-registr-col {
+        margin-right: 2%;
+        width: 45%;
+    }
+    .user-registr-submit .remember-me {
+        width: 33%;
+    }
+    .user-registr-submit .user-enter-submit {
+        width: 20%;
+    }
+    .user-registr-submit .user-enter-submit .form-group,
+    .user-registr-submit .user-enter-submit .form-group input{
+        width: 100%;
+    }*/
+}
+
+@media screen and (min-width: 576px) {    
+    #header {
+        align-items: top;
+        display: flex;
+        justify-content: space-between;
+        padding: 20px 0 0;
+        text-align: left;
+    }
+    
+    #site-logo,
+    .bvi-open {
+        width: 30%;
+    }
+    
+    .site-title {
+        padding: 0 20px 20px;
+        text-align: center;
+    }
+}
+@media screen and (min-width: 768px) {
+    .bvi-open .fa {
+        float: none;
+        font-size: 1.3rem;
+    }
+}
+@media screen and (min-width: 992px) {
+    .site-title {
+        font-size: 2.3rem;
+        line-height: 2.6rem;
+        padding: 0 50px 20px;
+    }    
+}
+/* lg */
+@media screen and (min-width: 1200px) {    
+    .site-title {
+        font-size: 2.8rem;
+        line-height: 3.2rem;
+    }
+/*    .user-menu {
+        font-size: 16px;
+    }
+    .user-registr-submit .remember-me {
+        width: 31%;
+    }
+    .user-registr-submit .user-enter-submit {
+        width: 18%;
+    }*/
+}

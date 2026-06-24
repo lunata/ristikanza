@@ -1,0 +1,116 @@
+.btn {
+    border-radius: 0;
+    text-decoration: none;
+    font-size: 1rem;
+    line-height: 1.3rem;
+    text-transform: uppercase;
+}
+
+.btn-primary:focus {
+    color: #fff;
+}
+
+.btn-danger,
+.btn-danger:active,
+.btn-danger:hover,
+.btn-danger:active:hover,
+.btn-danger:focus {
+    background-color: #e5210a;
+    border-color: #e5210a;
+}
+
+.btn-link {
+    color: #746c64;
+}
+
+.btn-primary
+{
+  background-color: #3c65ad;
+  border-color: #3c65ad;
+  color: rgba(255,255,255,.7) !important;
+}
+
+.btn-danger {
+    background-color: #e5210a;
+    color: #fff;
+}
+
+.btn-bvi {
+    text-align: right;
+    white-space: normal;
+}
+
+.btn-success {
+    color: #fff;
+    background-color: #49a76e;
+}
+
+.btn-info
+{
+  background-color: #5aa3d0;
+  border-color: #5aa3d0;
+  color: rgba(255,255,255,.7) !important;
+}
+
+.btn-info:hover
+{
+  background-color: #4397ca;
+  border-color: #4397ca;
+  color: rgba(255,255,255,.7) !important;
+}
+
+.btn.bvi-open {
+    font-size: 0.8rem;
+}
+
+.btn-primary.disabled, .btn-primary:disabled
+{
+  color: #000;
+  background-color: #ccc;
+  border-color: #ccc;
+}
+.help-icon {
+    color: #c9302c;
+    cursor: pointer;
+    display: block;
+    font-size: 16px;
+    position: absolute;
+    right: 12px;
+    text-align: right;
+    top: 12px;
+}
+
+.page-item.active .page-link {
+    background-color: #5aa3d0;
+    border-color: #5aa3d0;
+}
+
+.page-link,
+.page-link:hover {
+    color: #5aa3d0;
+}
+
+.remove-button {
+    color: #e5210a;
+    cursor: pointer;
+}
+
+.icon {
+    cursor: pointer;
+}
+
+.icon-warning {
+    color: #ffc107;
+}
+
+.restore,
+.restore:hover {
+    color: #49a76e;
+    font-size: 20px;
+}
+
+@media screen and (min-width: 768px) {
+    .btn.bvi-open {
+        font-size: 1rem;
+    }
+}
