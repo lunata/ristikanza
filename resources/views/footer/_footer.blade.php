@@ -1,7 +1,7 @@
 <div class="container">
     <footer class="fixed-bottom">
-    @&nbsp;Отдел аспирантуры КарНЦ РАН, 2023<br>
-    Разработка Крижановской Н.Б. и Кошман О.С. (ОА КарНЦ РАН)
+        <div class="copyright-b"><span class="copy-left">©</span> Ristikanza. {{ __('main.site_title') }}<br>
+                                {!! __('main.license') !!}
+        </div>
     </footer>
 </div>
-    

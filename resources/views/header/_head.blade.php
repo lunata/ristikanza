@@ -4,7 +4,7 @@
 <meta name="keywords" content="">
 <meta name="csrf-token" content="{{ csrf_token() }}">
 
-<title>@yield('title') :: {!!__('navigation.site_title')!!}</title>
+<title>@yield('title') :: {!!__('main.abbr')!!}</title>
 
 <!-- Fonts -->
 <link href="/fontawesome/css/fontawesome.min.css" rel="stylesheet">
@@ -15,6 +15,7 @@
 
 <!-- Styles -->
 <link href="/css/bootstrap.min.css" rel="stylesheet">
+{!! css('languages.min') !!}
 <link href="/css/main.css" rel="stylesheet">
 
 @yield('headExtra')

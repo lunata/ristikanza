@@ -1,21 +1,21 @@
 
-@extends('layouts.master')
+@extends('layouts.base')
 
 @section('title')
 {{ trans('main.site_title') }}
 @endsection
 
 @section('headExtra')
-    {!!Html::style('css/fancybox.css')!!}
+    {!! css('fancybox') !!}
 @stop
 
 @section('content')
 @endsection
 
 @section('footScriptExtra')
-    {!!Html::script('js/fancybox.umd.js')!!}
-    {!!Html::script('js/special_symbols.js')!!}
-    {!!Html::script('js/help.js')!!}
+    {!! js('fancybox.umd') !!}
+    {!! js('special_symbols') !!}
+    {!! js('help') !!}
 @stop
 
 @section('jqueryFunc')

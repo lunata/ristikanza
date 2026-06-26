@@ -38,8 +38,16 @@ return [
         'public' => [
             'driver' => 'local',
             'root' => storage_path('app/public'),
-            'url' => env('APP_URL').'/storage',
+            'url' => env('APP_URL') . '/storage',
             'visibility' => 'public',
+        ],
+
+        'dictorpus_media' => [
+            'driver' => 'local',
+            'root' => '/mnt/dictorpus-public',
+            'url' => env('DICTORPUS_MEDIA_URL', 'http://dictorpus.local/media'),
+            'visibility' => 'public',
+            'throw' => false,
         ],
 
         's3' => [

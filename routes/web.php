@@ -23,6 +23,7 @@ Route::group(
     ],
     function () {
         Route::get('/', [HomeController::class, 'index'])->name('welcome');
+        Route::get('/pages/{page}', [HomeController::class, 'page']);
 
         // при переходе по неподдерживаемому пути будет выводиться главная страница сайта
         Route::fallback([HomeController::class, 'index']);
