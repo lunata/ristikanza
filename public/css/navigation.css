@@ -70,12 +70,25 @@
 }
 
 .navbar-right {
-    color: #fff;
+    color: rgba(255, 255, 255, .7);
     font-size: 13px;
 }
 
+.navbar-right a:focus,
+.navbar-right a {
+    color: rgba(255, 255, 255, .7);
+}
+
+.navbar-right li {
+    display: block;
+}
+
+.lang-sm {
+    margin: 10px 25px 0 0;
+}
+
 .lang-sm::after {
-    top: -3px;
+    top: -2px;
     left: 5px;
 }
 
