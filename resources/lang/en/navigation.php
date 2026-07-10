@@ -1,6 +1,7 @@
 <?php
 return [
     'about' => 'About',
+    'about_full' => 'About the project',
     'bible' => 'Biblical texts',
     'ethnography' => 'Ethnography',
     'folklore' => 'Folklore',
@@ -8,10 +9,11 @@ return [
     'map' => 'Map',
     'map_full' => 'Map of the Festive Culture of Southern Karelia',
     'monuments' => 'Written monuments',
-    'oikonyms' => 'Oikonyms',
-    'oikonyms_full' => 'Oikonyms of Northern Ladoga',
+    'toponyms' => 'Oikonyms',
+    'toponyms_full' => 'Oikonyms of Northern Ladoga',
     'participants' => 'Participants',
     'publications' => 'Publications',
+    'publications_full' => 'Publications by participants on the project topic',
     'textbooks' => 'Textbooks',
     'textbooks_full' => 'School textbooks of Karelia',
     'texts' => 'Texts',

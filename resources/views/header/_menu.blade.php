@@ -13,14 +13,16 @@
                 </a>
 
                 <div class="dropdown-menu" aria-labelledby="navbarDropdown3">
-                    <a  class="dropdown-item" href="{{ LaravelLocalization::localizeURL('/pages/about') }}">{{ __('navigation.about') }}</a>
-                    <a  class="dropdown-item" href="{{ LaravelLocalization::localizeURL('/pages/publications') }}">{{ __('navigation.publications') }}</a>
+            @foreach (['about', 'publications', 'participants'] as $title)
+                    <a  class="dropdown-item" href="{{ LaravelLocalization::localizeURL('/pages/'.$title) }}">
+                        {{ __('navigation.'.$title) }}</a>
+            @endforeach
                 </div>
             </li>
 
             <li class="nav-item dropdown"> {{-- ОЙКОНИМЫ --}}
-                <a href="#" class="nav-link" id="navbarDropdown1" role="button" aria-haspopup="true" aria-expanded="false">
-                    {{ __('navigation.oikonyms') }}
+                <a href="{{ route('toponyms.index') }}" class="nav-link" id="navbarDropdown1" role="button" aria-haspopup="true" aria-expanded="false">
+                    {{ __('navigation.toponyms') }}
                 </a>
             </li>
 
