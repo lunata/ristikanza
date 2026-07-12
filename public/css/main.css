@@ -172,14 +172,14 @@ a.clickable:not([href]):not([tabindex]):hover {
 }
 
 footer {
-    background-color: #eccccc;;
-    color: #fff;
+    background-color: #eccccc;
+    color: #8a7373;
     padding: 20px 0;
     text-align: center;
 }
 
 footer a {
-    color: #fff;
+    color: #8a7373;
 }
 
 .new-doc {

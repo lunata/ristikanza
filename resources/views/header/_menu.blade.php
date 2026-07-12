@@ -21,7 +21,7 @@
             </li>
 
             <li class="nav-item dropdown"> {{-- ОЙКОНИМЫ --}}
-                <a href="{{ route('toponyms.index') }}" class="nav-link" id="navbarDropdown1" role="button" aria-haspopup="true" aria-expanded="false">
+                <a href="#" class="nav-link" id="navbarDropdown1" role="button" aria-haspopup="true" aria-expanded="false">
                     {{ __('navigation.toponyms') }}
                 </a>
             </li>
