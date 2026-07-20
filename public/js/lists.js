@@ -1,20 +1,12 @@
 // Gets values from input field (e.g. search regions) into one variable
-function selectedValuesToQuery(varname) {
+function selectedValuesToURL(varname) {
     var forURL = [];
     $( varname + " option:selected" ).each(function( index, element ){
         forURL.push($(this).val());
     });
     return forURL;
 }
-
-function selectedValuesToURL(fieldname, varname) {
-    var forURL = [];
-    $( fieldname + " option:selected" ).each(function( index, element ){
-        forURL.push(varname + '=' + $(this).val());
-    });
-    return forURL.join('&');
-}
-
+/*
 function selectAjax(route, data, placeholder, allow_clear, selector){
     $(selector).select2({
         allowClear: allow_clear,
@@ -25,7 +17,6 @@ function selectAjax(route, data, placeholder, allow_clear, selector){
           dataType: 'json',
           delay: 250,
           data: data,
-          headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
           processResults: function (result) {
             return {
               results: result
@@ -35,125 +26,365 @@ function selectAjax(route, data, placeholder, allow_clear, selector){
         }
     });   
 }
-
-function selectOclass(placeholder='', otype_var='search_otype', ogroup_var='', selector=".select-oclass", allow_clear=false){
-    var data = function (params) {
+*/
+function selectDistrict(region_var, locale='ru', placeholder='', allow_clear=true, selector='.select-district', form='', route='/dict/districts/list'){
+    $(selector).select2({
+        allowClear: allow_clear,
+        placeholder: placeholder,
+        width: '100%',
+        ajax: {
+          url: '/'+locale+route,
+          dataType: 'json',
+          delay: 250,
+          data: function (params) {
             return {
               q: params.term, // search term
-              otype_id: selectedValuesToQuery("#" + otype_var),
-              ogroup_id: selectedValuesToQuery("#" + ogroup_var),
+              regions: selectedValuesToURL(form + " #"+region_var),
             };
-          };
-    selectAjax("/oclasses/list", data, placeholder, allow_clear, selector);
-}
-
-function selectSignatory(placeholder='', oclass_var='oclass_id', ogroup_var='', selector=".select-signatory", allow_clear=false){
-    var data = function (params) {
+          },
+          processResults: function (data) {
             return {
-              q: params.term, // search term
-              oclass_id: selectedValuesToQuery("#" + oclass_var),
+              results: data
             };
-          };
-    selectAjax("/signatories/list", data, placeholder, allow_clear, selector);
-}
-
-function selectPattern(placeholder='', pgroup_id, type_var='search_ptype', selector=".select-pattern", allow_clear=false){
-    var data = function (params) {
-            return {
-              q: params.term, // search term
-              pgroup_id: pgroup_id,
-              ptype_id: selectedValuesToQuery("#" + type_var),
-            };
-          };
-    selectAjax("/patterns/list", data, placeholder, allow_clear, selector);
-}
-
-function selectAllFields(button_id, select_fields) {
-    $('#'+button_id).on('change', function(){
-        if ($('#'+button_id).prop('checked')){
-//console.log($(select_fields));            
-            $(select_fields).prop('checked', true);
-        } else {
-//console.log($(select_fields));            
-            $(select_fields).prop('checked', false);
+          },          
+          cache: true
         }
-    });
+    });   
 }
 
-function selectProspeciality(placeholder='', selector=".select-speciality", allow_clear=false){
-    var data = function (params) {
+function selectDistrict1926(region_var, locale='ru', placeholder='', allow_clear=true, selector='.select-district1926', form=''){
+    selectDistrict(region_var, locale, placeholder, allow_clear, selector, form, '/dict/districts1926/list');
+}
+
+function selectSelsovet1926(region_var, district_var, locale='ru', placeholder='', allow_clear=true, selector='.select-selsovet1926', form=''){
+    var route='/dict/selsovets1926/list';
+    $(form + ' ' + selector).select2({
+        allowClear: allow_clear,
+        placeholder: placeholder,
+        width: '100%',
+        ajax: {
+          url: '/'+locale+route,
+          dataType: 'json',
+          delay: 250,
+          data: function (params) {
             return {
               q: params.term, // search term
-              progr: $("input[name='progr']:checked").val(),
+              regions: selectedValuesToURL(form + " #"+region_var),
+              districts: selectedValuesToURL(form + " #"+district_var)
             };
-          };
-    selectAjax("/groups/prospeciality_list", data, placeholder, allow_clear, selector);
+          },
+          processResults: function (data) {
+            return {
+              results: data
+            };
+          },          
+          cache: true
+        }
+    });   
 }
 
-function selectDiscipline(placeholder='', dclass_var='dclass_id', speciality_var='speciality_id', selector=".select-discipline", allow_clear=false){
-    var data = function (params) {
+function selectSelsovet1926ForRegions(regions, district_var, locale='ru', placeholder='', allow_clear=true, selector='.select-selsovet1926', form=''){
+    var route='/dict/selsovets1926/list';
+    $(form + ' ' + selector).select2({
+        allowClear: allow_clear,
+        placeholder: placeholder,
+        width: '100%',
+        ajax: {
+          url: '/'+locale+route,
+          dataType: 'json',
+          delay: 250,
+          data: function (params) {
             return {
               q: params.term, // search term
-              dclass_id: $("input[name='" + dclass_var + "']:checked").val(),
-              speciality_id: $("#" + speciality_var + ' option:selected').val(),
-              progr: $("input[name='progr']:checked").val(),
+              regions: regions,
+              districts: selectedValuesToURL(form + " #"+district_var)
             };
-          };
-    selectAjax("/disciplines/list", data, placeholder, allow_clear, selector);
+          },
+          processResults: function (data) {
+            return {
+              results: data
+            };
+          },          
+          cache: true
+        }
+    });   
 }
 
-function selectLecturer(placeholder='', discipline_var='discipline_id', selector=".select-lecturer", allow_clear=false){
-    var data = function (params) {
+function selectSettlement(region_var, district_var, locale='ru', placeholder='', allow_clear=true, selector='.select-settlement', form=''){    
+    var route='/dict/settlements/list'
+    $(selector).select2({
+        allowClear: allow_clear,
+        placeholder: placeholder,
+        width: '100%',
+        ajax: {
+          url: '/'+locale+route,
+          dataType: 'json',
+          delay: 250,
+          data: function (params) {
             return {
               q: params.term, // search term
-              discipline_id: $("#" + discipline_var + ' option:selected').val(),
+              regions: selectedValuesToURL(form + " #"+region_var),
+              districts: selectedValuesToURL(form + " #"+district_var),
             };
-          };
-    selectAjax("/disciplines/lecturer_list", data, placeholder, allow_clear, selector);
+          },
+          processResults: function (data) {
+            return {
+              results: data
+            };
+          },          
+          cache: true
+        }
+    });   
 }
 
-function selectAdvicer(placeholder='', selector=".select-advicer", allow_clear=false){
-    var data = function (params) {
+function selectSettlementForDistricts(district_var, locale='ru', placeholder='', allow_clear=true, selector='.select-settlement', form=''){    
+    var route='/oikonyms/settlements';
+    $(selector).select2({
+        allowClear: allow_clear,
+        placeholder: placeholder,
+        width: '100%',
+        ajax: {
+          url: '/'+locale+route,
+          dataType: 'json',
+          delay: 250,
+          data: function (params) {
+            let $select = $(form + " #" + district_var);
+            let selected = $select.val(); // может быть null, строкой или массивом
+
+            let districts;
+
+            if (selected && selected.length > 0) {
+                districts = Array.isArray(selected) ? selected.join(',') : selected;
+            } else {
+                // Выбрать все option, у которых есть value
+                districts = $select.find('option')
+                    .map(function () {
+                        return $(this).val();
+                    })
+                    .get()
+                    .filter(Boolean) // убираем пустые значения
+                    .join(',');
+            }
+            return {
+              q: params.term, // search term
+              districts: districts,
+            };
+          },
+          processResults: function (data) {
+            return {
+              results: data
+            };
+          },          
+          cache: true
+        }
+    });   
+}
+
+function selectSettlement1926(region_var, district_var, selsovet_var, locale='ru', placeholder='', allow_clear=true, selector='.select-settlement1926', form=''){
+    var route='/dict/settlements1926/list'
+    $(selector).select2({
+        allowClear: allow_clear,
+        placeholder: placeholder,
+        width: '100%',
+        ajax: {
+          url: '/'+locale+route,
+          dataType: 'json',
+          delay: 250,
+          data: function (params) {
+            return {
+              q: params.term, // search term
+              regions: selectedValuesToURL(form + " #"+region_var),
+              districts: selectedValuesToURL(form + " #"+district_var),
+              selsovets: selectedValuesToURL(form + " #"+selsovet_var)
+            };
+          },
+          processResults: function (data) {
+            return {
+              results: data
+            };
+          },          
+          cache: true
+        }
+    });   
+}
+
+function selectSettlement1926ForRegions(regions, district_var, selsovet_var, locale='ru', placeholder='', allow_clear=true, selector='.select-settlement1926', form=''){
+    var route='/dict/settlements1926/list'
+    $(selector).select2({
+        allowClear: allow_clear,
+        placeholder: placeholder,
+        width: '100%',
+        ajax: {
+          url: '/'+locale+route,
+          dataType: 'json',
+          delay: 250,
+          data: function (params) {
+            return {
+              q: params.term, // search term
+              regions: regions,
+              districts: selectedValuesToURL(form + " #"+district_var),
+              selsovets: selectedValuesToURL(form + " #"+selsovet_var)
+            };
+          },
+          processResults: function (data) {
+            return {
+              results: data
+            };
+          },          
+          cache: true
+        }
+    });   
+}
+
+function selectEventSettlement(region_var, locale='ru', placeholder='', allow_clear=true, selector='.select-settlement', form=''){    
+    var route='/dict/settlements/list_with_districts'
+    $(selector).select2({
+        allowClear: allow_clear,
+        placeholder: placeholder,
+        width: '100%',
+//        width: 'resolve',
+        ajax: {
+          url: '/'+locale+route,
+          dataType: 'json',
+          delay: 250,
+          data: function (params) {
+            return {
+              q: params.term, // search term
+              regions: selectedValuesToURL(form + " #"+region_var),
+            };
+          },
+          processResults: function (data) {
+            return {
+              results: data
+            };
+          },          
+          cache: true
+        }
+    });   
+}
+
+function selectEventSettlement1926(region_var, locale='ru', placeholder='', allow_clear=true, selector='.select-settlement', form=''){    
+    var route='/dict/settlements1926/list_with_districts'
+    $(selector).select2({
+        allowClear: allow_clear,
+        placeholder: placeholder,
+        width: '100%',
+//        width: 'resolve',
+        ajax: {
+          url: '/'+locale+route,
+          dataType: 'json',
+          delay: 250,
+          data: function (params) {
+            return {
+              q: params.term, // search term
+              regions: selectedValuesToURL(form + " #"+region_var),
+            };
+          },
+          processResults: function (data) {
+            return {
+              results: data
+            };
+          },          
+          cache: true
+        }
+    });   
+}
+
+function selectStruct(structhier_var, locale='ru', placeholder='', allow_clear=true, selector='.select-struct', form='', structhier_id=null, route='/misc/structs/list'){
+    $(selector).select2({
+        allowClear: allow_clear,
+        placeholder: placeholder,
+        width: '100%',
+        ajax: {
+          url: '/'+locale+route,
+          dataType: 'json',
+          delay: 250,
+          data: function (params) {
+            return {
+              q: params.term, // search term
+              structhiers: structhier_id !== null ? structhier_id : selectedValuesToURL(form + " #"+structhier_var),
+            };
+          },
+          processResults: function (data) {
+            return {
+              results: data
+            };
+          },          
+          cache: true
+        }
+    });   
+}
+
+function selectInformant(locale='ru', placeholder='', allow_clear=true, selector='.select-informant', form='', route='/misc/informants/list'){
+    $(selector).select2({
+        allowClear: allow_clear,
+        placeholder: placeholder,
+        width: '100%',
+        ajax: {
+          url: '/'+locale+route,
+          dataType: 'json',
+          delay: 250,
+          data: function (params) {
             return {
               q: params.term, // search term
             };
-          };
-    selectAjax("/employees/advicer_list", data, placeholder, allow_clear, selector);
+          },
+          processResults: function (data) {
+            return {
+              results: data
+            };
+          },          
+          cache: true
+        }
+    });   
 }
 
-function selectGroup(placeholder='', discipline_var='discipline_id', employee_var='employees', selector=".select-group", allow_clear=false){
-    var data = function (params) {
+function selectRecorder(locale='ru', placeholder='', allow_clear=true, selector='.select-recorder', form='', route='/misc/recorders/list'){
+    $(selector).select2({
+        allowClear: allow_clear,
+        placeholder: placeholder,
+        width: '100%',
+        ajax: {
+          url: '/'+locale+route,
+          dataType: 'json',
+          delay: 250,
+          data: function (params) {
             return {
               q: params.term, // search term
-              discipline_id: $("#" + discipline_var + ' option:selected').val(),
-              employees: selectedValuesToQuery("#" + employee_var),
             };
-          };
-    selectAjax("/groups/list", data, placeholder, allow_clear, selector);
+          },
+          processResults: function (data) {
+            return {
+              results: data
+            };
+          },          
+          cache: true
+        }
+    });   
 }
 
-function selectStudent(role_id='', placeholder='', speciality_var='speciality_id', selector=".select-student", allow_clear=false, url='/students/list'){
-    var data = function (params) {
+function selectSource(locale='ru', placeholder='', allow_clear=true, selector='.select-source', form='', route='/oikonyms/sources'){
+    $(selector).select2({
+        allowClear: allow_clear,
+        placeholder: placeholder,
+        width: '100%',
+        ajax: {
+          url: '/'+locale+route,
+          dataType: 'json',
+          delay: 250,
+          data: function (params) {
             return {
               q: params.term, // search term
-              course: $("#course option:selected").val(),
-              speciality_id: $("#" + speciality_var + ' option:selected').val(),
-              progr: $("input[name='progr']:checked").val(),
-              role_id: role_id
+              year_from: $(form + " #search_year_from").val(),
+              year_to: $(form + " #search_year_to").val()
             };
-          };
-    selectAjax(url, data, placeholder, allow_clear, selector);
-}
-
-function selectSubdivisionForSpeciality(placeholder='', speciality_var='speciality_id', selector=".select-subdivision", allow_clear=false){
-    var data = function (params) {
+          },
+          processResults: function (data) {
             return {
-              q: params.term, // search term
-              speciality_id: $("#" + speciality_var + ' option:selected').val(),
+              results: data
             };
-          };
-    selectAjax("/subdivisions/list", data, placeholder, allow_clear, selector);
+          },          
+          cache: true
+        }
+    });   
 }
-
-
-

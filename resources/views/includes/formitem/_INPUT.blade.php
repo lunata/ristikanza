@@ -9,6 +9,7 @@ $id_name = preg_replace("/[\.\]\[]/","_",$name);
     
     <input class="{{ $classes }}" type="{{ $type }}" {!! $func ?? '' !!}
            name="{{ $name }}" id="{{ $id_name }}" value="{{ $value ?? old($name) }}"
+           min="{{ $min ?? '' }}" max="{{ $max ?? ''}}"
            placeholder="{{ $placeholder ?? null }}" pattern="{{ $pattern ?? null }}"
         @if (!empty($required))
            required

@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Route;
 use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
 
 use App\Http\Controllers\HomeController;
-use App\Http\Controllers\ToponymController;
+use App\Http\Controllers\OikonymController;
 
 /*
 |--------------------------------------------------------------------------
@@ -25,9 +25,11 @@ Route::group(
     function () {
         Route::get('/pages/{page}', [HomeController::class, 'page']);
 
-        Route::get('/toponyms/', [ToponymController::class, 'index']);
-        Route::get('/toponyms/on_map', [ToponymController::class, 'onMap']);
-        Route::get('/toponyms/{toponym}', [ToponymController::class, 'show']);
+        Route::get('/oikonyms/', [OikonymController::class, 'index'])->name('oikonyms.index');
+        Route::get('/oikonyms/on_map', [OikonymController::class, 'onMap']);
+        Route::get('/oikonyms/sources', [OikonymController::class, 'sources'])->name('oikonyms.sources');
+        Route::get('/oikonyms/settlements', [OikonymController::class, 'settlements'])->name('oikonyms.settlements');
+        Route::get('/oikonyms/{oikonym}', [OikonymController::class, 'show'])->name('oikonyms.show');
         
         Route::get('/', [HomeController::class, 'index'])->name('welcome');
 

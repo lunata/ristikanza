@@ -30,4 +30,8 @@ return [
         'region' => env('AWS_DEFAULT_REGION', 'us-east-1'),
     ],
 
+    'topkar' => [
+        'url' => env('TOPKAR_URL'),
+        'token' => env('TOPKAR_API_TOKEN'),
+    ],
 ];

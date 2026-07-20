@@ -10,6 +10,7 @@ return [
     |
     */
 
+    'abbr' => 'Ristikanza',
     'datetime_format' => '%B %d, %Y in %H:%M',
     'date_format' => '%B %d, %Y',
     'krc' => 'KarRC RAS',

@@ -2,6 +2,25 @@
     adaptive table
 */
 
+.table td, .table th {
+  border-top: 1px solid #eccccc;
+}
+
+.table thead th {
+    background-color: #eccccc;
+    border-bottom: 2px solid #eccccc;
+    color: #8a7373;
+}
+
+.table-striped tbody tr:nth-of-type(2n) {
+    background-color: #f9efef;
+}
+
+.table-striped tbody tr:nth-of-type(2n+1) {
+    background: none;
+}
+
+
 .centered {
     text-align: center;
 }

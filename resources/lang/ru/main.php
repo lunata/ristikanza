@@ -10,6 +10,7 @@ return [
     |
     */
 
+    'abbr' => 'Ристиканза',
     'datetime_format' => '%d %B %Y в %H:%M',
     'date_format' => '%d %B %Y',
     'krc' => 'КарНЦ РАН',

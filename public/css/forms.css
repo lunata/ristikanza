@@ -1,3 +1,6 @@
+@import url(special_symbols.css);
+@import url(select.css);
+
 .select2-container--default .select2-selection--single .select2-selection__rendered {
     font-size: 1rem;
 }
@@ -230,14 +233,6 @@ input[type="radio"]:checked+span:before{
   color: #aaa;
 }
 
-.search-form {
-  background-color: #ebf6ef;
-  border-top: 1px solid #ddd;
-  border-bottom: 1px solid #ddd;
-  margin-bottom: 10px;
-  padding: 20px 10px 0;
-}
-
 .modal-header {
     background-color: #3c65ad;
     color: #fff;    
@@ -262,6 +257,89 @@ input[type="radio"]:checked+span:before{
     margin: 0;
 }
 
+.search-form {
+box-shadow: 0px 1px 16px 0px rgba(74, 97, 147, 0.35);
+  padding: 40px 50px 50px;
+  margin-bottom: 70px;
+}
+
+.search-form .form-group {
+    margin-bottom: 12px;
+}
+
+.search-form .form-actions {
+    display: flex;
+    gap: 12px;
+    align-items: center;
+}
+
+.search-form .btn-primary {
+    background: #8d3d43;
+    border-color: #8d3d43;
+}
+
+.search-form .btn-primary:hover,
+.search-form .btn-primary:focus {
+    background: #65262b;
+    border-color: #65262b;
+}
+
+.output-fields {
+    border-top: 4px solid #eccccc;
+    color: #294237;
+    font-size: 16px;
+    font-weight: 500;
+    line-height: 90%;
+    margin: 20px 0 30px;
+    padding-top: 30px;
+}
+
+#portion {
+    color: #294237;
+    border-color: #c8d0df;
+    font-size: 16px;
+    height: 50px !important;
+    padding: 7px 5px;
+    text-align: center;
+    width: 50px;
+}
+
+#for-portion {
+    padding-left: 10px;
+}
+
+.output-fields label {
+    margin: 0; 
+}
+
+.output-fields-b > input {
+    padding: 20px; 
+}
+
+.output-fields select {
+    background-color: #eccccc;
+    font-weight: 500;
+}
+
+.output-fields-e {
+    display: flex; 
+    align-items: center;
+    margin: 20px 0;
+    font-size: 16px;
+    font-weight: 500;
+    line-height: 90%;
+    padding-right: 10px;
+}
+
+.output-fields-b > input {
+    margin: 10px 0;
+}
+
+.btn-clear {
+    background-color: #c5baba;
+    padding-top: 20px;
+}
+
 @media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
   .iti__flag {background-image: url("/img/flags@2x.png");}
 }
@@ -276,4 +354,30 @@ input[type="radio"]:checked+span:before{
 /*    .search-button-b input[type=text]{
         width: 50px;
     }*/
+}
+@media screen and (min-width: 992px) {  
+    .search-button-b input {
+        font-size: 12px;
+    }
+    .output-fields-b {
+        display: flex; 
+        justify-content: space-between; 
+        align-items: stretch;
+    }    
+    .output-fields-b > input {
+        padding: 20px 10px;
+    }
+    .output-fields-e,
+    .output-fields-b > input {
+        margin: 0;
+    }
+}
+
+@media screen and (min-width: 1200px) {    
+    .search-button-b input {
+        font-size: 14px;
+    }
+    .output-fields-b > input {
+        padding: 20px;
+    }
 }

@@ -13,11 +13,11 @@ return [
     |
     */
 
-    'next' => 'Next &raquo;',
-    'next_page' => 'Next page',
-    'pagination' => 'Pagination navigation',
-    'pagination_navigation' => 'Pagination navigation',
-    'previous' => '&laquo; Previous',
-    'previous_page' => 'Previous page',
+    'next' => 'Следующие &raquo;',
+    'next_page' => 'Следующая страница',
+    'pagination' => 'Навигация по страницам',
+    'pagination_navigation' => 'Навигация по страницам',
+    'previous' => '&laquo; Предыдущие',
+    'previous_page' => 'Предыдущая страница',
 
 ];
