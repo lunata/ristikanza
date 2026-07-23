@@ -1,0 +1,29 @@
+@if (!empty($mapData['latitude']) && !empty($mapData['longitude']))
+    <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"
+       integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA=="
+       crossorigin=""></script>
+
+    <script>
+      // initialize Leaflet
+      var map = L.map('mapid').setView({lon:{{ $mapData['longitude'] }} , lat: {{ $mapData['latitude'] }}}, 12);
+
+      var {{ $mapData['color'] }}Icon = L.icon({
+        iconUrl: '/img/markers/marker-icon-{{ $mapData['color'] }}.png',
+        iconSize: [30, 41]
+      });
+
+      // add the OpenStreetMap tiles
+      L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        maxZoom: 19,
+        attribution: '&copy; <a href="https://openstreetmap.org/copyright">OpenStreetMap contributors</a>'
+      }).addTo(map);
+
+      // show the scale bar on the lower left corner
+      L.control.scale().addTo(map);
+
+      // show a marker on the map
+      L.marker({ lon:{{ $mapData['longitude'] }} , lat: {{ $mapData['latitude'] }} },
+               { icon: {{ $mapData['color'] }}Icon })
+              .bindPopup('{{ $obj_name }}').addTo(map);
+    </script>
+@endif

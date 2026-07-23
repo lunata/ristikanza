@@ -9,6 +9,7 @@
 <html lang="ru-RU">
 <head>
 @include('header._head')
+@yield('head_base')
 </head>
     <!--[if lt IE 7]>
     <p class="browsehappy">Вы используете  <strong>слишком старый</strong> браузер. Пожалуйста <a href="http://browsehappy.com/">обновите ваш браузер</a> для нормального серфинга по современным сайтам.</p>
@@ -43,8 +44,14 @@
         @endif
 
         <section class='main'>
-@yield('main')
+            @yield('main')
+            @hasSection('page-content')
+                <div class="blank">
+                    @yield('page-content')
+                </div>
+            @endif
         </section>
+
     </div>
 @include('footer._footer')
 @include('footer._foot_script')

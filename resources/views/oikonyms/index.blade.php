@@ -4,22 +4,23 @@
 @section('h1', trans('navigation.oikonyms_full'))
 
 @section('headExtra')
-        {!! css('select2.min') !!}  
-        {!! css('table') !!}  
+        {!! css('select2.min') !!}
+        {!! css('table') !!}
 @endsection
 
 @section('search_form')
     @include('oikonyms._search_form', ['route'=>'oikonyms.index'])
+    <div class="row" style='line-height: 26px;'>
+         <div class="col-sm-4">
+            @include('includes.found_records', ['n_records'=>$total])
+         </div>
+         <div class="col-sm-8 output_in">
+         </div>
+    </div>
 @endsection
 
 @section('main')
-    <h2>{{ __('search.search_results') }}</h2>
-
     @if ($total)
-        <p>
-            {{ trans_choice('oikonym.records_found', $total, ['count' => $total]) }}
-        </p>
-
         <table class="table table-striped table-hover wide-md">
             <thead>
                 <tr>
@@ -49,7 +50,7 @@
 
                         <td style="font-weight: bold">
                             @if ($id)
-                                <a href="{{ route('oikonyms.show', ['oikonym' => $id]) }}">
+                                <a href="{{ route('oikonyms.show', ['id' => $id]) }}">
                                     {{ data_get($r, 'name') }}</a>
                             @else
                                 {{ data_get($r, 'name') }}
@@ -74,7 +75,7 @@
                 @endforeach
             </tbody>
         </table>
-        
+
         @include('includes.pagination', ['route' => 'oikonyms.index'])
     @else
         <p>{{ __('messages.records_not_found') }}</p>
@@ -94,5 +95,12 @@
             placeholder: '{{ trans('oikonym.district') }}',
             width: '100%'
         });
-        selectSettlementForDistricts('search_districts', @json(app()->getLocale()), '{{trans('oikonym.settlement')}}', false);
+        selectSettlement('search_districts', @json(app()->getLocale()), '{{ trans('oikonym.settlement') }}', false);
+        selectSelsovet1926('search_districts1926', @json(app()->getLocale()), '{{ trans('oikonym.selsovet_volost') }}', false);
+        selectSettlement1926('search_districts1926', 'search_selsovets1926', @json(app()->getLocale()), '{{trans('oikonym.settlement')}}', false);
+        $('.select-district1926').select2({
+            allowClear: true,
+            placeholder: '{{ trans('oikonym.district') }}',
+            width: '100%'
+        });
 @stop

@@ -25,12 +25,14 @@ Route::group(
     function () {
         Route::get('/pages/{page}', [HomeController::class, 'page']);
 
-        Route::get('/oikonyms/', [OikonymController::class, 'index'])->name('oikonyms.index');
         Route::get('/oikonyms/on_map', [OikonymController::class, 'onMap']);
         Route::get('/oikonyms/sources', [OikonymController::class, 'sources'])->name('oikonyms.sources');
+        Route::get('/oikonyms/selsovets1926', [OikonymController::class, 'selsovets1926'])->name('oikonyms.selsovets1926');
         Route::get('/oikonyms/settlements', [OikonymController::class, 'settlements'])->name('oikonyms.settlements');
-        Route::get('/oikonyms/{oikonym}', [OikonymController::class, 'show'])->name('oikonyms.show');
-        
+        Route::get('/oikonyms/settlements1926', [OikonymController::class, 'settlements1926'])->name('oikonyms.settlements1926');
+        Route::get('/oikonyms/{id}', [OikonymController::class, 'show'])->name('oikonyms.show')->where('id', '[0-9]+');
+        Route::get('/oikonyms/', [OikonymController::class, 'index'])->name('oikonyms.index');
+
         Route::get('/', [HomeController::class, 'index'])->name('welcome');
 
 

@@ -1,7 +1,8 @@
 .form-group .select2-container .select2-selection--single {
+    font-family: 'Open Sans', sans-serif;
     height: 30px;
     border-color: #ced4da;
-    box-shadow: 0 0 10px rgba(0,0,0,.075);
+    box-shadow: 0 0 10px rgba(0, 0, 0, .075);
 }
 
 .form-group .select2-container--default .select2-selection--single .select2-selection__rendered {
@@ -16,8 +17,9 @@
 }
 
 .form-group .select2-container--default.select2-container--focus .select2-selection--multiple {
-    border: 1px solid #c8d0df;
     background-color: #eff2f8;
+    border: 1px solid #c8d0df;
+    line-height: 1.5rem;
 }
 
 
@@ -28,19 +30,19 @@
 
 .form-group .select2-container--default .select2-selection--multiple .select2-selection__choice {
     background: none;
-    border: none;    
+    border: none;
 }
 
 .form-group .select2-container--default .select2-selection--multiple .select2-selection__choice__remove {
-    border: none;    
+    border: none;
 }
 
-.form-group .select2-container--default .select2-selection--multiple .select2-selection__choice__remove:hover, 
+.form-group .select2-container--default .select2-selection--multiple .select2-selection__choice__remove:hover,
 .form-group .select2-container--default .select2-selection--multiple .select2-selection__choice__remove:focus {
-    background: none;    
+    background: none;
 }
 
-.form-group .select2-container--default .select2-search--inline .select2-search__field {    
+.form-group .select2-container--default .select2-search--inline .select2-search__field {
     color: #8a7373;
     min-height: 20px;
     padding: 6px 18px;
@@ -48,7 +50,7 @@
 
 .form-group .select2-search__field::-webkit-input-placeholder,
 .form-group .select2-search__field::placeholder {
-    color: #8a7373;
+    color: #aaaab2;
 }
 
 .form-group .select2-container--default .select2-selection--single {
@@ -57,13 +59,12 @@
 
 .form-group .select2-container--default .select2-selection--single .select2-selection__placeholder,
 .form-group .select2-container--default .select2-selection--multiple .select2-selection__placeholder {
-    font-size: 12px;
-    color: #8a7373;
-    opacity: 0.5;
+    font-size: 1rem;
+    color: #aaaab2;
 }
 
 .form-group .select2-search__field::-webkit-input-placeholder,
 .form-group .select2-search__field::placeholder {
-    color: #8a7373;
-    font-size: 12px;
+    color: #aaaab2;
+    font-size: 1rem;
 }

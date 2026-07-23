@@ -46,10 +46,37 @@ class TopkarClient
                     $params
                 );
 
+
             $response->throw();
 
             return $response->json();
         });
+    }
+
+    public function getNLadogaOikonym($id): array
+    {
+        $locale = app()->getLocale();
+
+        $response = Http::acceptJson()
+            ->withHeaders([
+                'Accept-Language' => $locale,
+            ])
+            ->withToken(config('services.topkar.token'))
+            ->timeout(15)
+            ->get(
+                rtrim(config('services.topkar.url'), '/') .
+                    '/api/ristikanza/nladoga/oikonyms/' . $id
+            );
+
+        $response->throw();
+
+        $data = $response->json();
+
+        if (!is_array($data)) {
+            throw new \RuntimeException('TopKar returned invalid JSON.');
+        }
+
+        return $data;
     }
 
     public function getNLadogaOikonymsMap(array $params = []): array
@@ -67,7 +94,7 @@ class TopkarClient
             return $response->json();
         });
     }
-    
+
     public function getNLadogaOikonymFormValues(): array
     {
         $locale = app()->getLocale();
@@ -86,15 +113,15 @@ class TopkarClient
                 ->timeout(15)
                 ->get(
                     rtrim(config('services.topkar.url'), '/') .
-                    '/api/ristikanza/nladoga/oikonyms/form-values'
+                        '/api/ristikanza/nladoga/oikonyms/form-values'
                 );
 
             $response->throw();
 
             return $response->json();
         });
-    }    
-    
+    }
+
     public function getNLadogaSources(array $params = []): array
     {
         $locale = app()->getLocale();
@@ -114,8 +141,8 @@ class TopkarClient
         $response->throw();
 
         return $response->json();
-    }   
-    
+    }
+
     public function getNLadogaSettlements(array $params = []): array
     {
         $locale = app()->getLocale();
@@ -133,7 +160,53 @@ class TopkarClient
             );
 
         $response->throw();
+        /*return [
+            'sent_params' => $params,
+            'topkar_status' => $response->status(),
+            'topkar_body' => $response->json(),
+        ];*/
+        return $response->json();
+    }
+
+    public function getNLadogaSettlements1926(array $params = []): array
+    {
+        $locale = app()->getLocale();
+
+        $response = Http::acceptJson()
+            ->withHeaders([
+                'Accept-Language' => $locale,
+            ])
+            ->withToken(config('services.topkar.token'))
+            ->timeout(15)
+            ->get(
+                rtrim(config('services.topkar.url'), '/') .
+                    '/api/ristikanza/nladoga/oikonyms/settlements1926',
+                $params
+            );
+
+        $response->throw();
 
         return $response->json();
-    }    
+    }
+
+    public function getNLadogaSelsovets1926(array $params = []): array
+    {
+        $locale = app()->getLocale();
+
+        $response = Http::acceptJson()
+            ->withHeaders([
+                'Accept-Language' => $locale,
+            ])
+            ->withToken(config('services.topkar.token'))
+            ->timeout(15)
+            ->get(
+                rtrim(config('services.topkar.url'), '/') .
+                    '/api/ristikanza/nladoga/oikonyms/selsovets1926',
+                $params
+            );
+
+        $response->throw();
+
+        return $response->json();
+    }
 }

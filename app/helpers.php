@@ -306,6 +306,12 @@ if (! function_exists('human_time')) {
     }
 }
 
+if (! function_exists('number_with_space')) {
+    function number_with_space($num)
+    {
+        return number_format($num, 0, '', ' ');
+    }
+}
 
 if (! function_exists('trans_with_choice')) {
     function trans_with_choice(string $var, int $count)

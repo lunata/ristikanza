@@ -1,14 +1,14 @@
 .special-symbols-link {
-    background-color: #194230;
-    color: #eff2f8;
+    background-color: #436286;
+    color: rgba(255, 255, 255, .7) !important;
     cursor: pointer;
     display: block;
     font-size: 24px;
-    height: 50px;
-    padding: 12px;
+    height: 38px;
+    padding: 4px;
     position: absolute;
     right: 0;
-    text-align:center;
+    text-align: center;
     bottom: 0;
     width: 45px;
 }
@@ -17,13 +17,14 @@
 .with-special textarea {
     padding-right: 50px;
 }
+
 .special-symbols-link:hover {
-    color: #eff2f8;    
-} 
+    color: #eff2f8;
+}
 
 .special-symbols {
     background: #fff;
-    border: 1px solid #194230;
+    border: 1px solid #436286;
     display: none;
     height: 80px;
     position: absolute;
@@ -34,20 +35,21 @@
 }
 
 .ss-full {
-    height: 140px;    
+    height: 140px;
     top: -140px;
 }
+
 .special-symbol-b {
     overflow: hidden;
     height: 20px;
     width: 30px;
     margin: 0;
-    border: 1px solid rgba(128,128,128,.13);
+    border: 1px solid rgba(128, 128, 128, .13);
     padding: 2px 0;
     border-radius: 0;
     background: none;
     line-height: 19px;
-} 
+}
 
 .special-symbol-sup {
     font-size: 8px;
@@ -56,22 +58,21 @@
 }
 
 .special-symbols-header {
-    background: #194230;
+    background: #436286;
     height: 25px;
     position: relative;
 }
 
 .special-symbols-close {
-  position: absolute;
-  right: 0;
-  top: 0;
-  padding: 1px 10px;
-  cursor: pointer;
-  color: #fff;
-  font-size: 16px;
+    position: absolute;
+    right: 0;
+    top: 0;
+    padding: 1px 10px;
+    cursor: pointer;
+    color: #fff;
+    font-size: 16px;
 }
 
 .special-symbols-body {
     padding: 2px;
 }
-
