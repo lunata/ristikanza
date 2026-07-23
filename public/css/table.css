@@ -13,6 +13,25 @@
     color: rgba(255, 255, 255, 0.7);
 }
 
+.table-bordered>tbody>tr>td,
+.table-bordered>tbody>tr>th {
+    border: 6px solid #fff;
+}
+
+.table-bordered th {
+    background-color: #8f9b96;
+    color: #fff;
+    font-weight: normal;
+}
+
+.table-bordered td {
+    background-color: #eceeed;
+}
+
+.table-bordered a {
+    text-decoration: none;
+}
+
 .table-striped tbody tr:nth-of-type(2n) {
     background-color: #e7edf2;
 }

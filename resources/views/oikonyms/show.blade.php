@@ -8,6 +8,7 @@
          integrity="sha256-kLaT2GOSpHechhsozzB+flnD+zUyjE2LlfWPgU04xyI="
          crossorigin=""/>
     {!! css('map') !!}
+    {!! css('table') !!}
 @stop
 
 @section('page_top')

@@ -46,7 +46,6 @@ class TopkarClient
                     $params
                 );
 
-
             $response->throw();
 
             return $response->json();

@@ -32,11 +32,14 @@ class OikonymController extends Controller
             'search_settlements' => ['nullable', 'array'],
             'search_settlements.*' => ['integer', 'min:1'],
 
-            'search_settlements1926' => ['nullable', 'array'],
-            'search_settlements1926.*' => ['integer', 'min:1'],
+            'search_districts1926' => ['nullable', 'array'],
+            'search_districts1926.*' => ['integer', 'min:1'],
 
             'search_selsovets1926' => ['nullable', 'array'],
             'search_selsovets1926.*' => ['integer', 'min:1'],
+
+            'search_settlements1926' => ['nullable', 'array'],
+            'search_settlements1926.*' => ['integer', 'min:1'],
 
             'sort_by' => ['nullable', 'string'],
             'in_desc' => ['nullable', 'in:0,1'],
@@ -53,8 +56,9 @@ class OikonymController extends Controller
 
             'search_districts' => array_values(array_unique($validated['search_districts'] ?? [])),
             'search_settlements' => array_values(array_unique($validated['search_settlements'] ?? [])),
-            'search_settlements1926' => array_values(array_unique($validated['search_settlements1926'] ?? [])),
+            'search_districts1926' => array_values(array_unique($validated['search_districts1926'] ?? [])),
             'search_selsovets1926' => array_values(array_unique($validated['search_selsovets1926'] ?? [])),
+            'search_settlements1926' => array_values(array_unique($validated['search_settlements1926'] ?? [])),
 
             'sort_by' => $validated['sort_by'] ?? 'name',
             'in_desc' => (int)($validated['in_desc'] ?? 0),
