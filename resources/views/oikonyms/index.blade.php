@@ -11,10 +11,13 @@
 @section('search_form')
     @include('oikonyms._search_form', ['route'=>'oikonyms.index'])
     <div class="row" style='line-height: 26px;'>
-         <div class="col-sm-4">
+         <div class="col-sm-4 total-rec">
             @include('includes.found_records', ['n_records'=>$total])
          </div>
          <div class="col-sm-8 output_in">
+            @if ($total)
+            <a href="{{ route('oikonyms.on_map').search_values_by_URL($url_args) }}">{!! __('oikonym.output_on_map') !!}</a>
+            @endif 
          </div>
     </div>
 @endsection
@@ -26,7 +29,7 @@
                 <tr>
                     <th>&numero;</th>
                     <th>{{ __('oikonym.oikonym') }}</th>
-                    <th>{{ __('oikonym.geotype') }}</th>
+                    <th>{{ __('oikonym.lang') }}</th>
                     <th>
                         {{ __('oikonym.location') }} /
                         <br>
@@ -38,7 +41,6 @@
             <tbody>
                 @foreach ($toponyms as $r)
                     @php
-//        dd($r);
                         $id = data_get($r, 'id');
                         $topnames = data_get($r, 'topname');
                     @endphp
@@ -62,7 +64,7 @@
                         </td>
 
                         <td>
-                            {{ data_get($r, 'geotype') }}
+                            {{ data_get($r, 'lang') }}
                         </td>
 
                         <td>

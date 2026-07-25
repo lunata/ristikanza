@@ -337,8 +337,8 @@ th {
     display: flex;
     align-items: center;
     margin: 20px 0;
-    font-size: 16px;
-    font-weight: 500;
+    font-size: .9rem;
+    font-weight: bold;
     line-height: 90%;
     padding-right: 10px;
 }
@@ -360,6 +360,15 @@ th {
     color: rgba(255, 255, 255, .7);
 }
 
+.total-rec {
+   font-size: 1.2rem;
+}
+
+.output_in {
+   font-size: 1.2rem;
+   text-align: right;
+}
+  
 @media (-webkit-min-device-pixel-ratio: 2),
 (min-resolution: 192dpi) {
     .iti__flag {

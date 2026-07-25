@@ -25,7 +25,7 @@ Route::group(
     function () {
         Route::get('/pages/{page}', [HomeController::class, 'page']);
 
-        Route::get('/oikonyms/on_map', [OikonymController::class, 'onMap']);
+        Route::get('/oikonyms/on_map', [OikonymController::class, 'onMap'])->name('oikonyms.on_map');
         Route::get('/oikonyms/sources', [OikonymController::class, 'sources'])->name('oikonyms.sources');
         Route::get('/oikonyms/selsovets1926', [OikonymController::class, 'selsovets1926'])->name('oikonyms.selsovets1926');
         Route::get('/oikonyms/settlements', [OikonymController::class, 'settlements'])->name('oikonyms.settlements');

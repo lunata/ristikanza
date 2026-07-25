@@ -96,5 +96,9 @@
         ])
     </div>
 </div>
+@if (!empty($for_map))
+    @include("includes.form._output_for_map")
+@else    
     @include('includes.form._output_fields')
+@endif    
 {{ html()->form()->close() }}

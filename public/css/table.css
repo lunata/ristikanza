@@ -4,13 +4,12 @@
 
 .table td,
 .table th {
-    border-top: 1px solid #436286;
+    border-top: 1px solid #babdc1;
 }
 
 .table thead th {
-    background-color: #436286;
-    border-bottom: 2px solid #436286;
-    color: rgba(255, 255, 255, 0.7);
+    background-color: #d4d9de;
+    border-bottom: 2px solid #babdc1;
 }
 
 .table-bordered>tbody>tr>td,
@@ -33,11 +32,11 @@
 }
 
 .table-striped tbody tr:nth-of-type(2n) {
-    background-color: #e7edf2;
+    background-color: #d4d9de;
 }
 
 .table-striped tbody tr:nth-of-type(2n+1) {
-    background-color: #d4d9de;
+    background-color: #e7edf2;
 }
 
 

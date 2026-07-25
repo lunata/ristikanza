@@ -43,16 +43,19 @@
         </div>
         @endif
 
+        @hasSection('main')
         <section class='main'>
             @yield('main')
-            @hasSection('page-content')
-                <div class="blank">
-                    @yield('page-content')
-                </div>
-            @endif
         </section>
-
+        @endif
+       
     </div>
+
+        @hasSection('wide-block')
+        <div class="wide-b">
+            @yield('wide-block')
+        </div>                
+        @endif
 @include('footer._footer')
 @include('footer._foot_script')
 </body>

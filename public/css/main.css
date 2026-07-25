@@ -251,6 +251,10 @@ i.checked {
     margin-bottom: 70px;
 }
 
+.wide-b {
+  padding: 0 2% 6.5rem;
+}
+
 @media (min-width: 576px) {
     .modal-dialog {
         max-width: 576px;

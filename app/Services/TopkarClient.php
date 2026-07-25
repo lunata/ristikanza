@@ -86,7 +86,7 @@ class TopkarClient
             $response = Http::acceptJson()
                 ->withToken(config('services.topkar.token'))
                 ->timeout(20)
-                ->get(rtrim(config('services.topkar.url'), '/') . '/api/ristikanza/nladoga-oikonyms-map', $params);
+                ->get(rtrim(config('services.topkar.url'), '/') . '/api/ristikanza/nladoga/oikonyms/map', $params);
 
             $response->throw();
 

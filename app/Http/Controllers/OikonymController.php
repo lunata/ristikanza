@@ -45,6 +45,10 @@ class OikonymController extends Controller
             'in_desc' => ['nullable', 'in:0,1'],
             'portion' => ['nullable', 'integer'],
             'page' => ['nullable', 'integer', 'min:1'],
+            'map_height' => ['nullable', 'integer'],
+            'not_claster' => ['nullable', 'in:0,1'],
+            'outside_bounds' => ['nullable', 'in:0,1'],
+            'only_exact_coords' => ['nullable', 'in:0,1'],
         ]);
 
         $params = [
@@ -64,6 +68,10 @@ class OikonymController extends Controller
             'in_desc' => (int)($validated['in_desc'] ?? 0),
             'portion' => (int)($validated['portion'] ?? 10),
             'page' => (int)($validated['page'] ?? 1),
+            'map_height' => (int)($validated['map_height'] ?? 1000),
+            'not_claster' => (int)($validated['not_claster'] ?? 0),
+            'outside_bounds' => (int)($validated['outside_bounds'] ?? 0),
+            'only_exact_coords' => (int)($validated['only_exact_coords'] ?? 0),
         ];
 
         if (
@@ -106,14 +114,40 @@ class OikonymController extends Controller
         ));
     }
 
-    public function map(Request $request)
+    public function onMap(Request $request)
     {
-        $result = $this->topkarClient->getNLadogaOikonymsMap($request->query());
-
-        $objs = $result['data'] ?? [];
+        $url_args = $this->searchArgs($request);
+        $result = $this->topkarClient->getNLadogaOikonymsMap($url_args);
+        
+//dd($result['data']);            
+        $objs = collect();
+        foreach ($result['data'] as $obj) {
+            $rows = $line = [];
+            foreach ($obj["popup"] as $obj_id => $obj_name) {
+                if ($obj_id == 's') {
+                    $rows[] = '<b>'.$obj_name.'</b>';
+                } else {
+                    $obj_link = '<a href="'. route('oikonyms.show', $obj_id). '">'.$obj_name.'</a>';
+                    if ($obj['color']=='grey') {
+                        $line[] = $obj_link;
+                    } else {
+                        $rows[] = $obj_link;
+                    }
+                }
+            }
+            if (sizeof($line)>0) {
+                $rows[] = join ('; ', $line);
+            }
+            $obj['popup'] = join ('<br>', $rows); 
+            $objs->push($obj);
+        }
         $meta = $result['meta'] ?? [];
-
-        return view('oikonyms.map', compact('objs', 'meta'));
+        foreach ($meta['bounds'] as $k=>$v) {
+            $url_args[$k] = $v;
+        }
+//dd($url_args);        
+//dd($objs->groupBy('color'));
+        return view('oikonyms.on_map', compact('meta', 'objs', 'url_args'));
     }
 
     public function show(int $id)
