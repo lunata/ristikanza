@@ -2,12 +2,12 @@
     <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"
        integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA=="
        crossorigin=""></script>
-    {!! css('leaflet') !!}  
+    {!! css('leaflet') !!}
 
     <script>
       // initialize Leaflet
       var map = L.map('mapid').setView({lon:{{empty($lon) ? '33' : $lon}} , lat: {{empty($lat) ? '63.5' : $lat}}}, {{empty($zoom) ? '7' : $zoom}});
-      
+
       @foreach ($objs->groupBy('color') as $color => $tmp)
       var {{ $color }}Icon = L.icon({
         iconUrl: '/img/markers/marker-icon-{{ $color }}.png',
@@ -23,21 +23,21 @@
 
       // show the scale bar on the lower left corner
       L.control.scale().addTo(map);
-      
+
       @if (!empty($bounds))
       var bounds = [
             [{{ $bounds['min_lat'] }}, {{ $bounds['min_lon'] }}], // Юго-западный угол (SW)
             [{{ $bounds['max_lat'] }}, {{ $bounds['max_lon'] }}]  // Северо-восточный угол (NE)
-      ];   
+      ];
       map.fitBounds(bounds);
       @endif
 
       // show markers on the map
       @foreach ($objs as $obj)
-      L.marker({ lon:{{ $obj['lon'] }} , lat: {{ $obj['lat'] }} }, 
+      L.marker({ lon:'{{ $obj['lon'] }}' , lat: '{{ $obj['lat'] }}' },
                { icon: {{ $obj['color'] }}Icon })
               .bindPopup('{!! $obj["popup"] !!}'
-            @if ($obj['color'] != 'blue' && mb_strlen($obj['popup']) > 300 || !empty($url_args['popup_all'])) 
+            @if ($obj['color'] != 'blue' && mb_strlen($obj['popup']) > 300 || !empty($url_args['popup_all']))
                 ,{
                 @if ($obj['color'] != 'blue' && mb_strlen($obj['popup']) > 300)
                     maxWidth : {{ mb_strlen($obj['popup']) < 2400 ? 300+round((mb_strlen($obj["popup"])-300)/3) : 1000 }}
@@ -54,7 +54,7 @@
                 .openPopup();
             @endif
       @endforeach
-      
+
     var selectingMinCoords = false;
     var selectingMaxCoords = false;
     var $minLat = $('input[name="min_lat"]');
@@ -67,7 +67,7 @@
         e.preventDefault();
         selectingMinCoords = true;
         $(map.getContainer()).css('cursor', 'help');
-        
+
     // Скроллим страницу к низу карты
         $('html, body').animate({
             scrollTop: $(map.getContainer()).offset().top + $(map.getContainer()).outerHeight() - $(window).height()
@@ -97,7 +97,7 @@
         e.preventDefault();
         selectingMaxCoords = true;
         $(map.getContainer()).css('cursor', 'help');
-        
+
     // Скроллим страницу к верху карты
         $('html, body').animate({
             scrollTop: $(map.getContainer()).offset().top
@@ -147,6 +147,6 @@
         $(map.getContainer()).css('cursor', '');
 
 //        alert(`Установлены координаты: широта ${lat}, долгота ${lon}`);
-    });      
+    });
     </script>
-@endif    
+@endif
