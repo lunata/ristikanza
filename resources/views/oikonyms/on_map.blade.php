@@ -8,6 +8,10 @@
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.3/dist/leaflet.css"
          integrity="sha256-kLaT2GOSpHechhsozzB+flnD+zUyjE2LlfWPgU04xyI="
          crossorigin=""/>
+    @if (empty($url_args['not_claster']))
+    <link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster@1.5.3/dist/MarkerCluster.css">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster@1.5.3/dist/MarkerCluster.Default.css">
+    @endif
     {!! css('map') !!}
     {!! css('leaflet') !!}
 @stop
@@ -51,9 +55,9 @@
         {!! js('select2.min') !!}
         {!! js('lists') !!}
         {!! js('special_symbols') !!}
-        @include('includes.objs_on_map'.(empty($url_args['not_claster']) ? '_claster' : ''), [
-            'lon' => (float)$url_args['min_lon']+($url_args['max_lon']-$url_args['min_lon'])/2,
-            'lat' => (float)$url_args['min_lat']+($url_args['max_lat']-$url_args['min_lat'])/2,
+        @include('includes.objs_on_map', [
+            'lon' => 0, 'lat' => 0,
+            'cluster' => empty($url_args['not_claster']),
             'bounds' => $meta['bounds']])
 @endsection
 
