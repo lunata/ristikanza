@@ -14,7 +14,6 @@ class OikonymController extends Controller
         $this->topkarClient = $topkarClient;
     }
 
-
     private function searchArgs(Request $request): array
     {
         $validated = $request->validate([
@@ -118,35 +117,35 @@ class OikonymController extends Controller
     {
         $url_args = $this->searchArgs($request);
         $result = $this->topkarClient->getNLadogaOikonymsMap($url_args);
-        
-//dd($result['data']);            
+
+        //dd($result['data']);
         $objs = collect();
         foreach ($result['data'] as $obj) {
             $rows = $line = [];
             foreach ($obj["popup"] as $obj_id => $obj_name) {
                 if ($obj_id == 's') {
-                    $rows[] = '<b>'.$obj_name.'</b>';
+                    $rows[] = '<b>' . $obj_name . '</b>';
                 } else {
-                    $obj_link = '<a href="'. route('oikonyms.show', $obj_id). '">'.$obj_name.'</a>';
-                    if ($obj['color']=='grey') {
+                    $obj_link = '<a href="' . route('oikonyms.show', $obj_id) . '">' . $obj_name . '</a>';
+                    if ($obj['color'] == 'grey') {
                         $line[] = $obj_link;
                     } else {
                         $rows[] = $obj_link;
                     }
                 }
             }
-            if (sizeof($line)>0) {
-                $rows[] = join ('; ', $line);
+            if (sizeof($line) > 0) {
+                $rows[] = join('; ', $line);
             }
-            $obj['popup'] = join ('<br>', $rows); 
+            $obj['popup'] = join('<br>', $rows);
             $objs->push($obj);
         }
         $meta = $result['meta'] ?? [];
-        foreach ($meta['bounds'] as $k=>$v) {
+        foreach ($meta['bounds'] as $k => $v) {
             $url_args[$k] = $v;
         }
-//dd($url_args);        
-//dd($objs->groupBy('color'));
+        //dd($url_args);
+        //dd($objs->groupBy('color'));
         return view('oikonyms.on_map', compact('meta', 'objs', 'url_args'));
     }
 

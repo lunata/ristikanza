@@ -5,6 +5,7 @@ use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
 
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\OikonymController;
+use App\Http\Controllers\TextController;
 
 /*
 |--------------------------------------------------------------------------
@@ -32,6 +33,14 @@ Route::group(
         Route::get('/oikonyms/settlements1926', [OikonymController::class, 'settlements1926'])->name('oikonyms.settlements1926');
         Route::get('/oikonyms/{id}', [OikonymController::class, 'show'])->name('oikonyms.show')->where('id', '[0-9]+');
         Route::get('/oikonyms/', [OikonymController::class, 'index'])->name('oikonyms.index');
+
+        Route::get('/texts/bible', [TextController::class, 'bible'])->name('texts.bible');
+        Route::get('/texts/ethnography', [TextController::class, 'ethnography'])->name('texts.ethnography');
+        Route::get('/texts/folklore', [TextController::class, 'folklore'])->name('texts.folklore');
+        Route::get('/texts/genres', [TextController::class, 'genres'])->name('texts.genres');
+        Route::get('/texts/monuments', [TextController::class, 'monuments'])->name('texts.monuments');
+        Route::get('/texts/{id}', [TextController::class, 'show'])->name('texts.show')->where('id', '[0-9]+');
+        Route::get('/texts/', [TextController::class, 'index'])->name('texts.index');
 
         Route::get('/', [HomeController::class, 'index'])->name('welcome');
 

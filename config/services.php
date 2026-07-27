@@ -34,4 +34,9 @@ return [
         'url' => env('TOPKAR_URL'),
         'token' => env('TOPKAR_API_TOKEN'),
     ],
+
+    'dictorpus' => [
+        'url' => env('DICTORPUS_URL'),
+        'token' => env('DICTORPUS_API_TOKEN'),
+    ],
 ];

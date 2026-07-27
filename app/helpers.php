@@ -1,7 +1,68 @@
 <?php
 
 use Illuminate\Support\Str;
+
 use Carbon\Carbon;
+use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
+
+if (!function_exists('highlight')) {
+    function highlight(string $str, string $substr, $class = 'search-word')
+    {
+        $str = preg_replace('/\R/u', ' ', $str);
+        if ($substr === null || $substr === '') {
+            return $str;
+        }
+        $parts = preg_split(
+            '/(<[^>]+>)/u',
+            $str,
+            -1,
+            PREG_SPLIT_DELIM_CAPTURE | PREG_SPLIT_NO_EMPTY
+        );
+
+        $needles = preg_split('/\s+/u', trim($substr), -1, PREG_SPLIT_NO_EMPTY);
+        if (!$needles) {
+            return $str;
+        }
+
+        foreach ($parts as &$part) {
+            if (preg_match('/^<[^>]+>$/u', $part)) {
+                continue;
+            }
+
+            if (count($needles) === 1) {
+                $pattern = '/' . preg_quote($needles[0], '/') . '/iu';
+                $part = preg_replace($pattern, '<span class="' . $class . '">$0</span>', $part);
+            } else {
+                $pattern = '/' . implode('\s+', array_map(function ($word) {
+                    return preg_quote($word, '/');
+                }, $needles)) . '/iu';
+
+                $part = preg_replace($pattern, '<span class="' . $class . '">$0</span>', $part);
+            }
+        }
+        unset($part);
+
+        return implode('', $parts);
+    }
+}
+
+if (! function_exists('remove_empty')) {
+    function remove_empty($url_args = NULL)
+    {
+        if (isset($url_args['limit_num']) && $url_args['limit_num'] == 10) {
+            unset($url_args['limit_num']);
+        }
+        if (isset($url_args['page']) && $url_args['page'] == 1) {
+            unset($url_args['page']);
+        }
+        foreach ($url_args as $k => $v) {
+            if (!$v || is_array($v) && (!sizeof($v) || sizeof($v) == 1 && isset($v[1]) && !$v[1])) {
+                unset($url_args[$k]);
+            }
+        }
+        return $url_args;
+    }
+}
 
 if (! function_exists('to_sql')) {
     function to_sql($query)
@@ -11,7 +72,7 @@ if (! function_exists('to_sql')) {
 }
 
 if (! function_exists('plural_from_model')) {
-    function plural_from_model($model)
+    function plural_from_model(string $model)
     {
         $plural = Str::plural(class_basename($model));
         return Str::camel($plural);
@@ -19,7 +80,7 @@ if (! function_exists('plural_from_model')) {
 }
 
 if (! function_exists('to_link')) {
-    function to_link($str, $link, $args_by_get = '', $class = '')
+    function to_link(string $str, string $link, $args_by_get = '', $class = '')
     {
         return '<a href="' . LaravelLocalization::localizeURL($link) . $args_by_get . '"' .
             ($class ? ' class="' . $class . '"' : '') . '>' . $str . '</a>';

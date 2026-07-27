@@ -1,0 +1,9 @@
+.text-sec-link>div {
+    min-height: 200px;
+    text-align: center;
+}
+
+.text-sec-link a {
+    font-size: 2rem;
+    text-decoration: none;
+}
