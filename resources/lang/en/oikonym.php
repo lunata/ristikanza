@@ -21,7 +21,6 @@ return [
     'geotype' => 'Settlement type',
 
     'informants' => 'Informants',
-    'lang' => 'Language',
     'legend' => 'Popular interpretation, legends',
     'location' => 'Current location',
     'location_1926' => 'Location in 1926',

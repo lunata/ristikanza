@@ -102,6 +102,48 @@ class DictorpusClient
         });
     }
 
+    public function getDialects(array $params = []): array
+    {
+        $locale = app()->getLocale();
+
+        $response = Http::acceptJson()
+            ->withHeaders([
+                'Accept-Language' => $locale,
+            ])
+            ->withToken(config('services.dictorpus.token'))
+            ->timeout(15)
+            ->get(
+                rtrim(config('services.dictorpus.url'), '/') .
+                    '/api/ristikanza/texts/dialects',
+                $params
+            );
+
+        $response->throw();
+
+        return $response->json();
+    }
+
+    public function getDistricts(array $params = []): array
+    {
+        $locale = app()->getLocale();
+
+        $response = Http::acceptJson()
+            ->withHeaders([
+                'Accept-Language' => $locale,
+            ])
+            ->withToken(config('services.dictorpus.token'))
+            ->timeout(15)
+            ->get(
+                rtrim(config('services.dictorpus.url'), '/') .
+                    '/api/ristikanza/texts/districts',
+                $params
+            );
+
+        $response->throw();
+
+        return $response->json();
+    }
+
     public function getGenres(array $params = []): array
     {
         $locale = app()->getLocale();
@@ -122,4 +164,26 @@ class DictorpusClient
 
         return $response->json();
     }
+    
+    public function getPlaces(array $params = []): array
+    {
+        $locale = app()->getLocale();
+
+        $response = Http::acceptJson()
+            ->withHeaders([
+                'Accept-Language' => $locale,
+            ])
+            ->withToken(config('services.dictorpus.token'))
+            ->timeout(15)
+            ->get(
+                rtrim(config('services.dictorpus.url'), '/') .
+                    '/api/ristikanza/texts/places',
+                $params
+            );
+
+        $response->throw();
+
+        return $response->json();
+    }
+
 }

@@ -3,6 +3,7 @@ return [
     'about' => 'О проекте',
     'about_full' => 'О проекте',
     'bible' => 'Библейские тексты',
+    'ethnographic_texts' => 'Этнографические тексты',
     'ethnography' => 'Этнография',
     'folklore' => 'Фольклор',
     'library' => 'Библиотека',

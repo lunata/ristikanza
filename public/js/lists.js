@@ -1,32 +1,58 @@
-// Gets values from input field (e.g. search regions) into one variable
-function selectedValuesToURL(varname) {
-    var forURL = [];
-    $(varname + " option:selected").each(function (index, element) {
-        forURL.push($(this).val());
-    });
-    return forURL;
+function selectDialect(lang_var, placeholder='', allow_clear=false, selector='.select-dialect'){
+    selectWithLang(selector, "/texts/dialects", lang_var, placeholder, allow_clear);
 }
-/*
-function selectAjax(route, data, placeholder, allow_clear, selector){
+
+function selectDistrict(region_var='search_event_region', placeholder='', selector='.select-district', allow_clear=false){
     $(selector).select2({
         allowClear: allow_clear,
         placeholder: placeholder,
         width: '100%',
         ajax: {
-          url: route,
+          url: "/texts/districts",
           dataType: 'json',
           delay: 250,
-          data: data,
-          processResults: function (result) {
+          data: function (params) {
             return {
-              results: result
+              q: params.term, // search term
+              region_id: $("#" + region_var).val()
             };
           },
+          processResults: function (data) {
+            return {
+              results: data
+            };
+          },          
           cache: true
         }
-    });
+    });   
 }
-*/
+
+function selectPlace(district_var='search_event_district', region_var='search_event_region', placeholder='', selector='.select-place', allow_clear=false){
+    $(selector).select2({
+        allowClear: allow_clear,
+        placeholder: placeholder,
+        width: '100%',
+        ajax: {
+          url: "/texts/places",
+          dataType: 'json',
+          delay: 250,
+          data: function (params) {
+            return {
+              q: params.term, // search term
+              region_id: $("#" + region_var).val(),
+              district_id: selectedValuesToURL("#" + district_var)
+            };
+          },
+          processResults: function (data) {
+            return {
+              results: data
+            };
+          },          
+          cache: true
+        }
+    });   
+}
+
 function selectSettlement(district_var, locale = 'ru', placeholder = '', allow_clear = true, selector = '.select-settlement', form = '') {
     var route = '/oikonyms/settlements';
     $(selector).select2({
@@ -131,3 +157,39 @@ function selectSource(locale = 'ru', placeholder = '', allow_clear = true, selec
         }
     });
 }
+
+function selectWithLang(el, url, lang_var, placeholder='', allow_clear=false){
+    $(el).select2({
+        allowClear: allow_clear,
+        placeholder: placeholder,
+        width: '100%',
+        ajax: {
+          url: url,
+          dataType: 'json',
+          delay: 250,
+          data: function (params) {
+            return {
+              q: params.term, // search term
+              lang_id: selectedValuesToURL("#"+lang_var)
+            };
+          },
+          processResults: function (data) {
+            return {
+              results: data
+            };
+          },          
+          cache: true
+        }
+    });   
+}
+
+// Gets values from input field (e.g. search regions) into one variable
+function selectedValuesToURL(varname) {
+    var forURL = [];
+    $(varname + " option:selected").each(function (index, element) {
+        forURL.push($(this).val());
+    });
+    return forURL;
+}
+ 
+

@@ -3,6 +3,7 @@ return [
     'about' => 'About',
     'about_full' => 'About the project',
     'bible' => 'Biblical texts',
+    'ethnographic_texts' => 'Ethnographic texts',
     'ethnography' => 'Ethnography',
     'folklore' => 'Folklore',
     'library' => 'Library',

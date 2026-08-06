@@ -4,7 +4,7 @@
             @include('includes.formitem._SELECT', 
                     ['name' => 'sort_by', 
                      'values' => $form_values['sort_values'] ?? [],
-                     'value' => $params['sort_by'] ?? '',
+                     'value' => $url_args['sort_by'] ?? '',
                      ]) 
         </div>
         <div class='col-sm-8 output-fields-b'>
@@ -16,11 +16,11 @@
                            type="checkbox"
                            value="1"
                            hidden
-                           {{ !empty($params['in_desc']) && (int)$params['in_desc'] === 1 ? ' checked' : '' }}>
+                           {{ !empty($url_args['in_desc']) && (int)$url_args['in_desc'] === 1 ? ' checked' : '' }}>
                     <span></span>
                 </label>
 
-                <span>{!! __('messages.in_desc') !!}</span>
+                <span>{!! __('search.in_desc') !!}</span>
             </div>
             <div class='output-fields-e'>
                 <input class='form-control'
@@ -29,8 +29,8 @@
                        type="number"
                        min="1"
                        step="1"
-                       value="{{ $params['portion'] ?? 10 }}">
-                <span id='for-portion'>{!! __('messages.entries_per_page') !!}</span>
+                       value="{{ $url_args['portion'] ?? 10 }}">
+                <span id='for-portion'>{!! __('search.entries_per_page') !!}</span>
             </div>
             <a href="{{ route(request()->route()->getName()) }}"
                 class="btn btn-grey btn-default btn-clear">

@@ -84,18 +84,23 @@ class TextController extends Controller
             'search_year_from' => ['nullable', 'integer', 'min:1', 'max:2100'],
             'search_year_to' => ['nullable', 'integer', 'min:1', 'max:2100'],
 
-            'limit_num' => ['nullable', 'integer'],
+            'sort_by' => ['nullable', 'string'],
+            'in_desc' => ['nullable', 'in:0,1'],
+            'portion' => ['nullable', 'integer'],
             'page' => ['nullable', 'integer', 'min:1'],
             'with_audio' => ['nullable', 'in:0,1'],
             'with_transtext' => ['nullable', 'in:0,1'],
         ]);
 
         $params = [
-            'limit_num' => (int)($validated['limit_num'] ?? 10),
+            'sort_by' => $validated['sort_by'] ?? 'title',
+            'in_desc' => (int)($validated['in_desc'] ?? 0),
+            'portion' => (int)($validated['portion'] ?? 10),
             'page' => (int)($validated['page'] ?? 1),
             'with_audio' => (int)($validated['not_claster'] ?? 0),
             'with_transtext' => (int)($validated['outside_bounds'] ?? 0),
         ];
+        $params['limit_num'] = $params['portion'];
 
         foreach (['search_author', 'search_text', 'search_title', 'search_w', 'search_word'] as $k) {
             $params[$k] = trim((string)($validated[$k] ?? ''));
@@ -151,7 +156,7 @@ class TextController extends Controller
         $per_page = $result['per_page'] ?? 10;
 
         $form_values = $this->dictorpusClient->getTextFormValues();
-
+//dd($form_values);
         return view('texts.ethnography', compact(
             'current_page',
             'form_values',
@@ -180,6 +185,53 @@ class TextController extends Controller
 
         return response()->json(
             $this->dictorpusClient->getGenres($params)
+        );
+    }
+    
+    public function dialects(Request $request)
+    {
+        $params = $request->validate([
+            'q' => ['nullable', 'string', 'max:255'],
+            'lang_id' => ['nullable', 'array'],
+            'lang_id.*' => ['integer', 'min:1'],
+        ]);
+
+        $params['q'] = trim((string)($params['q'] ?? ''));
+
+        return response()->json(
+            $this->dictorpusClient->getDialects($params)
+        );
+    }
+    
+    public function districts(Request $request)
+    {
+        $params = $request->validate([
+            'q' => ['nullable', 'string', 'max:255'],
+            'region_id' => ['nullable', 'array'],
+            'region_id.*' => ['integer', 'min:1'],
+        ]);
+
+        $params['q'] = trim((string)($params['q'] ?? ''));
+
+        return response()->json(
+            $this->dictorpusClient->getDistricts($params)
+        );
+    }
+    
+    public function places(Request $request)
+    {
+        $params = $request->validate([
+            'q' => ['nullable', 'string', 'max:255'],
+            'region_id' => ['nullable', 'array'],
+            'region_id.*' => ['integer', 'min:1'],
+            'district_id' => ['nullable', 'array'],
+            'district_id.*' => ['integer', 'min:1'],
+        ]);
+
+        $params['q'] = trim((string)($params['q'] ?? ''));
+
+        return response()->json(
+            $this->dictorpusClient->getPlaces($params)
         );
     }
 }

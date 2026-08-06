@@ -21,7 +21,6 @@ return [
     'clear' => 'clear',
     'close' => 'close',
     'code' => 'code',
-    'entries_per_page' => 'Number<br>of entries<br>per page',
     'examples' => 'Examples',
 
     'frequency' => 'frequency',
@@ -29,7 +28,6 @@ return [
 
     'history' => 'history',
 
-    'in_desc' => 'In decreasing<br>order',
     'in_detail' => 'in detail',
     'in_english' => 'in English',
     'in_finnish' => 'in Finnish',

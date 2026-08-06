@@ -21,13 +21,11 @@ return [
     'clear' => 'очистить',
     'close' => 'закрыть',
     'code' => 'код',
-    'entries_per_page' => 'Количество<br>записей<br>на странице',
     'examples' => 'Примеры',
 
     'frequency' => 'частота',
     'from' => 'с',
 
-    'in_desc' => 'В убывающем<br>порядке',
     'in_detail' => 'подробно',
     'in_english' => 'по-английски',
     'in_finnish' => 'по-фински',

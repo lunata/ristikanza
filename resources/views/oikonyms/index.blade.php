@@ -29,7 +29,7 @@
                 <tr>
                     <th>&numero;</th>
                     <th>{{ __('oikonym.oikonym') }}</th>
-                    <th>{{ __('oikonym.lang') }}</th>
+                    <th>{{ __('general.lang') }}</th>
                     <th>
                         {{ __('oikonym.location') }} /
                         <br>
