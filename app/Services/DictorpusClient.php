@@ -164,7 +164,7 @@ class DictorpusClient
 
         return $response->json();
     }
-    
+
     public function getPlaces(array $params = []): array
     {
         $locale = app()->getLocale();
@@ -186,4 +186,24 @@ class DictorpusClient
         return $response->json();
     }
 
+    public function getTopics(array $params = []): array
+    {
+        $locale = app()->getLocale();
+
+        $response = Http::acceptJson()
+            ->withHeaders([
+                'Accept-Language' => $locale,
+            ])
+            ->withToken(config('services.dictorpus.token'))
+            ->timeout(15)
+            ->get(
+                rtrim(config('services.dictorpus.url'), '/') .
+                    '/api/ristikanza/texts/topics',
+                $params
+            );
+
+        $response->throw();
+
+        return $response->json();
+    }
 }

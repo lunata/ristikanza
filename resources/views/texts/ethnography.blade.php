@@ -111,4 +111,5 @@
         });
     selectDistrict('search_birth_region', '{{ __('text.district') }}');
     selectPlace('search_birth_region', 'search_birth_district', '{{ __('text.place') }}');
+    selectTopic();
 @stop

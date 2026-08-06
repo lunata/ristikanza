@@ -26,10 +26,8 @@ class TextController extends Controller
             'search_birth_place' => ['nullable', 'array'],
             'search_birth_place.*' => ['integer', 'min:1'],
 
-            'search_birth_region' => ['nullable', 'integer', 'min:1'],
-
-            'search_corpus' => ['nullable', 'array'],
-            'search_corpus.*' => ['integer', 'min:1'],
+            'search_birth_region' => ['nullable', 'array'],
+            'search_birth_region.*' => ['integer', 'min:1'],
 
             'search_cycle' => ['nullable', 'array'],
             'search_cycle.*' => ['integer', 'min:1'],
@@ -40,13 +38,14 @@ class TextController extends Controller
             'search_district' => ['nullable', 'array'],
             'search_district.*' => ['integer', 'min:1'],
 
+            'search_event_region' => ['nullable', 'array'],
+            'search_event_region.*' => ['integer', 'min:1'],
+
             'search_event_district' => ['nullable', 'array'],
             'search_event_district.*' => ['integer', 'min:1'],
 
             'search_event_place' => ['nullable', 'array'],
             'search_event_place.*' => ['integer', 'min:1'],
-
-            'search_event_region' => ['nullable', 'integer', 'min:1'],
 
             'search_genre' => ['nullable', 'array'],
             'search_genre.*' => ['integer', 'min:1'],
@@ -54,7 +53,8 @@ class TextController extends Controller
             'search_ieeh_archive_number1' => ['nullable', 'string', 'max:10'],
             'search_ieeh_archive_number2' => ['nullable', 'string', 'max:10'],
 
-            'search_informant' => ['nullable', 'integer', 'min:1'],
+            'search_informant' => ['nullable', 'array'],
+            'search_informant.*' => ['integer', 'min:1'],
 
             'search_lang' => ['nullable', 'array'],
             'search_lang.*' => ['integer', 'min:1'],
@@ -68,19 +68,22 @@ class TextController extends Controller
             'search_plot' => ['nullable', 'array'],
             'search_plot.*' => ['integer', 'min:1'],
 
-            'search_recorder' => ['nullable', 'integer', 'min:1'],
-            'search_region' => ['nullable', 'integer', 'min:1'],
-            'search_source' => ['nullable', 'integer', 'min:1'],
+            'search_recorder' => ['nullable', 'array'],
+            'search_recorder.*' => ['integer', 'min:1'],
 
-            'search_title' => ['nullable', 'string', 'max:255'],
+            'search_region' => ['nullable', 'array'],
+            'search_region.*' => ['integer', 'min:1'],
 
             'search_topic' => ['nullable', 'array'],
             'search_topic.*' => ['integer', 'min:1'],
 
+            'search_title' => ['nullable', 'string', 'max:255'],
+            'search_source' => ['nullable', 'string', 'max:255'],
             'search_text' => ['nullable', 'string', 'max:255'],
             'search_w' => ['nullable', 'string', 'max:255'],
             'search_word' => ['nullable', 'string', 'max:255'],
 
+            'search_corpus' => ['nullable', 'integer', 'min:1'],
             'search_year_from' => ['nullable', 'integer', 'min:1', 'max:2100'],
             'search_year_to' => ['nullable', 'integer', 'min:1', 'max:2100'],
 
@@ -102,15 +105,15 @@ class TextController extends Controller
         ];
         $params['limit_num'] = $params['portion'];
 
-        foreach (['search_author', 'search_text', 'search_title', 'search_w', 'search_word'] as $k) {
+        foreach (['search_author', 'search_text', 'search_title', 'search_source', 'search_w', 'search_word'] as $k) {
             $params[$k] = trim((string)($validated[$k] ?? ''));
         }
 
-        foreach (['search_birth_district', 'search_birth_region', 'search_event_region', 'search_ieeh_archive_number1', 'search_ieeh_archive_number2', 'search_informant', 'search_region', 'search_source', 'search_year_from', 'search_year_to'] as $k) {
+        foreach (['search_corpus', 'search_year_from', 'search_year_to'] as $k) {
             $params[$k] = $validated[$k] ?? null;
         }
 
-        foreach (['search_birth_place', 'search_corpus', 'search_cycle', 'search_dialect', 'search_district', 'search_event_district', 'search_event_place', 'search_genre', 'search_lang', 'search_motive', 'search_place', 'search_plot', 'search_topic'] as $k) {
+        foreach (['search_birth_district', 'search_birth_region', 'search_event_region', 'search_birth_place', 'search_informant', 'search_region', 'search_cycle', 'search_dialect', 'search_district', 'search_event_district', 'search_event_place', 'search_genre', 'search_lang', 'search_motive', 'search_place', 'search_plot', 'search_topic'] as $k) {
             $params[$k] = array_values(array_unique($validated[$k] ?? []));
         }
 
@@ -154,9 +157,10 @@ class TextController extends Controller
         $last_page = $result['last_page'] ?? 1;
         $total = $result['total'] ?? 0;
         $per_page = $result['per_page'] ?? 10;
+        $url_args = $result['url_args'] ?? $url_args;
 
         $form_values = $this->dictorpusClient->getTextFormValues();
-//dd($form_values);
+        //dd($form_values);
         return view('texts.ethnography', compact(
             'current_page',
             'form_values',
@@ -187,7 +191,7 @@ class TextController extends Controller
             $this->dictorpusClient->getGenres($params)
         );
     }
-    
+
     public function dialects(Request $request)
     {
         $params = $request->validate([
@@ -202,7 +206,7 @@ class TextController extends Controller
             $this->dictorpusClient->getDialects($params)
         );
     }
-    
+
     public function districts(Request $request)
     {
         $params = $request->validate([
@@ -217,7 +221,7 @@ class TextController extends Controller
             $this->dictorpusClient->getDistricts($params)
         );
     }
-    
+
     public function places(Request $request)
     {
         $params = $request->validate([
@@ -232,6 +236,20 @@ class TextController extends Controller
 
         return response()->json(
             $this->dictorpusClient->getPlaces($params)
+        );
+    }
+
+    public function topics(Request $request)
+    {
+        $params = $request->validate([
+            'q' => ['nullable', 'string', 'max:255'],
+            'corpus_id' => ['nullable', 'integer', 'min:1'],
+        ]);
+
+        $params['q'] = trim((string)($params['q'] ?? ''));
+
+        return response()->json(
+            $this->dictorpusClient->getTopics($params)
         );
     }
 }
