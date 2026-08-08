@@ -28,13 +28,13 @@
 
     <div class='photos-b'>
         @foreach ($text['photos'] as $photo)
-        <img class='photo' src="{{ env('DICTORPUS_URL').$photo['src'] }}" data-big="{{ env('DICTORPUS_URL').$photo['big'] }}" data-title="{{ str_replace('"', '\"', $photo['title']) }}">
+        <img class='photo' src="{{ config('services.dictorpus.url').$photo['src'] }}" data-big="{{ env('DICTORPUS_URL').$photo['big'] }}" data-title="{{ str_replace('"', '\"', $photo['title']) }}">
         @endforeach
     </div>   
 
     @foreach ($text['audiotexts'] as $route)
         <div style='display:flex; margin-bottom: 20px'>
-            @include('includes.audio', ['route'=>env('DICTORPUS_URL').$route])
+            @include('includes.audio', ['route'=>config('services.dictorpus.url').$route])
         </div>
     @endforeach
     
