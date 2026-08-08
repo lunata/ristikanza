@@ -27,11 +27,7 @@
                 <th>{{ trans('text.dialect') }}</th>
         @endif
                 <th>{{ trans('text.title') }}</th>
-        @if (empty($url_args['search_word']))
                 <th>{{ trans('text.translation') }}</th>
-        @else
-                <th style='text-align: center'>{{ trans('text.sentences') }}</th>
-        @endif
             </tr>
         </thead>
 
@@ -56,15 +52,12 @@
             @endif
                 <td data-th="{{ trans('text.title') }}">
                     {{ $text['author'] ? $text['author'].'.' : '' }}
-                    <a href="{{ route('texts.show',['id'=>$id]) }}{{$args_by_get}}">{!! highlight($text['title'], $url_args['search_w'] ?? '', 'search-word') !!}</a>
-                @if (!empty($url_args['search_word']) && !empty($text['transtitle']))
-                    <br>({!! highlight($text['transtitle'], $url_args['search_w'] ?? '', 'search-word') !!})
-                @endif
+                    <a href="{{ route('texts.show',['id'=>$id]) }}{{$args_by_get}}">{{ $text['title'] }}</a>
                 </td>
                 <td data-th="{{ trans('text.translation') }}">
                     @if ($text['trans_title'])
                     {{ $text['trans_author'] ? $text['trans_author'].'.' : '' }}
-                    {!! highlight($text['trans_title'], $url_args['search_w'] ?? '', 'search-word') !!}
+                    {{ $text['trans_title'] }}
                     @endif
                 </td>
                     </tr>

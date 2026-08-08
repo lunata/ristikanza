@@ -10,7 +10,7 @@ return [
     |
     */
 
-    'back_to_list' => 'Вернуться к списку',
+    'back_to_list' => 'Вернуться к&nbsp;списку',
     'back_to_show' => 'Вернуться к просмотру',
     'bin_answer_0' => 'нет',
     'bin_answer_1' => 'да',

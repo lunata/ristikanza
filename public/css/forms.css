@@ -337,14 +337,56 @@ th {
     display: flex;
     align-items: center;
     margin: 20px 0;
-    font-size: .9rem;
-    font-weight: bold;
+    font-size: .95rem;
+/*    font-weight: bold;*/
     line-height: 90%;
     padding-right: 10px;
 }
 
 .output-fields-b>input {
     margin: 10px 0;
+}
+
+.text-search-row {
+    display: flex;
+    align-items: flex-start;
+}
+
+.col-for-checkbox .check-field {
+    padding-top: 10px;
+}   
+
+.check-field {
+    display: flex;
+    align-items: flex-start;
+}
+
+.check-field-label {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin: 0;
+    cursor: pointer;
+    font-weight: normal;
+    line-height: 1;
+}
+
+/* Первый span — нарисованный квадрат checkbox */
+.check-field-label > span:first-of-type {
+    display: block;
+    flex: 0 0 32px;
+    box-sizing: border-box;
+    width: 32px;
+    height: 32px;
+    position: relative;
+    border: 1px solid #bbb;
+    background: #fff;
+    margin-right: 0;
+}
+
+/* Текстовая подпись */
+.check-field-label > span:last-of-type {
+    line-height: 1.05;
 }
 
 .btn-clear {
@@ -388,6 +430,12 @@ th {
     }*/
 }
 
+@media (min-width: 768px) {
+    .col-for-checkbox .check-field {
+        padding-top: 32px;
+    }    
+}
+
 @media screen and (min-width: 992px) {
     .search-button-b input {
         font-size: 12px;
@@ -406,7 +454,7 @@ th {
     .output-fields-e,
     .output-fields-b>input {
         margin: 0;
-    }
+    }    
 }
 
 @media screen and (min-width: 1200px) {

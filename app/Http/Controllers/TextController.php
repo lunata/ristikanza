@@ -80,8 +80,6 @@ class TextController extends Controller
             'search_title' => ['nullable', 'string', 'max:255'],
             'search_source' => ['nullable', 'string', 'max:255'],
             'search_text' => ['nullable', 'string', 'max:255'],
-            'search_w' => ['nullable', 'string', 'max:255'],
-            'search_word' => ['nullable', 'string', 'max:255'],
 
             'search_corpus' => ['nullable', 'integer', 'min:1'],
             'search_year_from' => ['nullable', 'integer', 'min:1', 'max:2100'],
@@ -92,6 +90,7 @@ class TextController extends Controller
             'portion' => ['nullable', 'integer'],
             'page' => ['nullable', 'integer', 'min:1'],
             'with_audio' => ['nullable', 'in:0,1'],
+            'with_photo' => ['nullable', 'in:0,1'],
             'with_transtext' => ['nullable', 'in:0,1'],
         ]);
 
@@ -100,12 +99,13 @@ class TextController extends Controller
             'in_desc' => (int)($validated['in_desc'] ?? 0),
             'portion' => (int)($validated['portion'] ?? 10),
             'page' => (int)($validated['page'] ?? 1),
-            'with_audio' => (int)($validated['not_claster'] ?? 0),
-            'with_transtext' => (int)($validated['outside_bounds'] ?? 0),
+            'with_audio' => (int)($validated['with_audio'] ?? 0),
+            'with_photo' => (int)($validated['with_photo'] ?? 0),
+            'with_transtext' => (int)($validated['with_transtext'] ?? 0),
         ];
         $params['limit_num'] = $params['portion'];
 
-        foreach (['search_author', 'search_text', 'search_title', 'search_source', 'search_w', 'search_word'] as $k) {
+        foreach (['search_author', 'search_text', 'search_title', 'search_source'] as $k) {
             $params[$k] = trim((string)($validated[$k] ?? ''));
         }
 
@@ -137,18 +137,29 @@ class TextController extends Controller
         return view('texts.index');
     }
 
-    public function show(int $id)
+    public function show(int $id, Request $request)
     {
         $text = $this->dictorpusClient->getText($id);
-        return view('texts.show', compact('text'));
+        //dd($text);
+        if (isset($text['source']['number'])) {
+            $text['source']['number'] = '<b>'.trans('text.archive_krc').':</b> '.$text['source']['number'];
+
+        }
+        $url_args = $this->searchArgs($request);
+        
+        if (!isset($url_args['search_corpus']) && is_array($text['corpuses']) && sizeof($text['corpuses'])>0) {
+            $url_args['search_corpus'] = array_keys($text['corpuses'])[0];
+        }
+        
+        $args_by_get = search_values_by_URL($url_args);
+        
+        return view('texts.show', compact('text', 'args_by_get', 'url_args'));
     }
 
     public function ethnography(Request $request)
     {
         $url_args = $this->searchArgs($request);
         //dd($url_args);
-        $url_args_w = remove_empty($url_args);
-        $args_by_get = search_values_by_URL($url_args_w);
 
         $result = $this->dictorpusClient->getEthnographicTexts($url_args);
         //dd($result);
@@ -158,6 +169,13 @@ class TextController extends Controller
         $total = $result['total'] ?? 0;
         $per_page = $result['per_page'] ?? 10;
         $url_args = $result['url_args'] ?? $url_args;
+        if (isset($url_args['search_corpus'][0])) {
+            $url_args['search_corpus'] = $url_args['search_corpus'][0];
+        } else {
+            $url_args['search_corpus'] = null;
+        }
+        $url_args = remove_empty($url_args);
+        $args_by_get = search_values_by_URL($url_args);
 
         $form_values = $this->dictorpusClient->getTextFormValues();
         //dd($form_values);

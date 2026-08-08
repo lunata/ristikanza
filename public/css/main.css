@@ -175,7 +175,7 @@ footer {
     color: rgba(255, 255, 255, 0.7);
     padding: 20px 0;
     text-align: center;
-    font-size: .5rem;
+    font-size: .7rem;
 }
 
 footer a {
@@ -255,6 +255,45 @@ i.checked {
   padding: 0 2% 6.5rem;
 }
 
+#modalOpenBigPhoto .modal-dialog {
+    width: 90vw;
+    height: 90vh;
+    margin: 5vh auto;
+}
+
+#modalOpenBigPhoto .modal-content {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+#modalOpenBigPhoto .modal-body {
+    flex: 1 1 auto;
+    min-height: 0;
+    padding: 15px;
+    overflow: hidden;
+}
+
+#modalOpenBigPhoto .photo-in-modal {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#modalOpenBigPhoto .photo-in-modal img {
+    display: block;
+    max-width: 100%;
+    max-height: 100%;
+    width: auto;
+    height: auto;
+    object-fit: contain;
+}
+
+.col-for-checkbox {
+}
+
 @media (min-width: 576px) {
     .modal-dialog {
         max-width: 576px;
@@ -280,5 +319,5 @@ i.checked {
 
     .modal-lg {
         max-width: 992px;
-    }
+    }    
 }

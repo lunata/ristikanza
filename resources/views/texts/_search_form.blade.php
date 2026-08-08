@@ -1,5 +1,5 @@
 {{ html()->form('GET', route($route))->open(); }}
-<input id='search_corpus' type="hidden" name='search_corpus' value='{{ isset($url_args['search_corpus'][0]) ? $url_args['search_corpus'][0] : '' }}'>
+<input id='search_corpus' type="hidden" name='search_corpus' value='{{ $url_args['search_corpus'] }}'>
 <div class="row">
     <div class="col-md-4">
         <!-- Language -->
@@ -59,7 +59,7 @@
         @include('includes.formitem._SELECT2',
                 ['name' => 'search_topic',
                  'values' => $form_values['topic_values'],
-                 'value' => $url_args['search_topic'],
+                 'value' => $url_args['search_topic'] ?? [],
                  'title' => trans('text.topic'),
                  'class'=>'select-topic form-control'
         ])
@@ -92,7 +92,7 @@
                 @include('includes.formitem._TEXT',
                         ['name' => 'search_source',
                         'special_symbol' => true,
-                        'value' => $url_args['search_source'],
+                        'value' => $url_args['search_source'] ?? '',
                          'attributes' => ['placeholder' => trans('text.source')],
                         ])
             </div>
@@ -158,7 +158,7 @@
 </div>
 
 <p class="row-title">{{ trans('text.mentioned_place') }}</p>
-<div class="row">
+<div class="row text-search-row">
     <div class="col-md-4">
         @include('includes.formitem._SELECT2',
                 ['name' => 'search_region',
@@ -187,26 +187,32 @@
         @include('includes.formitem._TEXT',
                 ['name' => 'search_text',
                  'special_symbol' => true,
-                 'value' => $url_args['search_text'],
+                 'value' => $url_args['search_text'] ?? '',
                  'title' => trans('text.text_fragment')
                 ])
 
     </div>
-    <div class="col-sm-4">
+    <div class="col-md-3 col-for-checkbox">
         @include('includes.formitem._CHECKBOX_styled',
                 ['name' => 'with_audio',
                 'value' => 1,
                 'checked' => !empty($url_args['with_audio']) && (int)$url_args['with_audio'] === 1,
                 'tail'=>trans('text.with_audio')])
     </div>
-    <div class="col-sm-4">
+    <div class="col-md-2 col-for-checkbox">
+        @include('includes.formitem._CHECKBOX_styled',
+                ['name' => 'with_photo',
+                'value' => 1,
+                'checked' => !empty($url_args['with_photo']) && (int)$url_args['with_photo'] === 1,
+                'tail'=>trans('text.with_photo')])
+    </div>
+    <div class="col-md-3 col-for-checkbox">
         @include('includes.formitem._CHECKBOX_styled',
                 ['name' => 'with_transtext',
                 'value' => 1,
                 'checked' => !empty($url_args['with_transtext']) && (int)$url_args['with_transtext'] === 1,
                 'tail'=>trans('text.with_transtext')])
     </div>
-
 </div>
 
 @include('includes.form._output_fields')

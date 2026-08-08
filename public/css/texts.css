@@ -7,3 +7,68 @@
     font-size: 2rem;
     text-decoration: none;
 }
+
+.topic-list {
+    margin: 0 0 10px 20px;
+    font-style: italic;
+}
+
+.topic-list-title {
+    font-style: normal;
+    font-weight: bold;
+    margin: 10px 0 0 -20px;
+    
+}
+
+.topic-list-title:first-letter,
+.metadata-title:first-letter {
+    text-transform: lowercase;
+}
+
+.metadata-title {
+    display: inline-block;
+    font-weight: bold;
+}
+
+.text-metadata p {
+    margin: 0;
+}
+
+.corpus-text {
+    margin-top: 20px;
+}
+
+.corpus-text td:first-of-type {
+    padding-right: 20px;
+}
+
+.corpus-text td:last-of-type {
+    padding-left: 20px;
+}
+
+.corpus-text h3 {
+    margin-top: 10px;
+}
+
+h5 {
+  color: #999;
+  font-size: .8rem;
+}
+
+s {
+    text-decoration: none;
+}
+
+.photos-b {
+    margin-bottom: 10px;
+}
+
+.photos-b img{
+    display: inline-block;
+    margin: 0 10px 10px 0;
+    cursor: pointer;
+}
+
+.photo-in-modal {
+  text-align: center;
+}

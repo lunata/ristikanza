@@ -1,7 +1,7 @@
-@extends('layouts.base')
+@extends('layouts.page')
 
 @section('title', trans('navigation.texts'))
-@section('h1', trans('navigation.texts'))
+@section('h1', isset($url_args['search_corpus']) && isset(__('text.corpuses')[$url_args['search_corpus']]) ? __('text.corpuses')[$url_args['search_corpus']] : __('navigation.texts'))
 
 @section('headExtra')
         {!! css('select2.min') !!}
@@ -11,18 +11,58 @@
 
 @section('page_top')
     <h2>
-        {{ $text->authorsToString() ? $text->authorsToString().'.' : '' }}
-        {!!highlight($text->title, $url_args['search_w'], 'search-word')!!}
+        {{ sizeof($text['authors']) ? join(', ', $text['authors']).'.' : '' }}
+        {!! highlight($text['title'], $url_args['search_w'] ?? '', 'search-word') !!}
     </h2>
 @stop
 
 @section('top_links')
-    <p>
-        <a href="{{ route('texts.index') }}" class="top-icon to-list">
-            {{ __('messages.back_to_list') }}
-        </a>
-    </p>
+    <a href="{{ route('texts.index') }}?{{ $args_by_get }}" class="top-icon to-list">{!! __('messages.back_to_list') !!}</a>
 @stop
 
 @section('content')
+    @include('includes.modal',['name'=>'modalOpenBigPhoto',
+                          'title'=>$text['event_place'] ?? ''])
+                          
+    @include('texts._metadata')
+
+    <div class='photos-b'>
+        @foreach ($text['photos'] as $photo)
+        <img class='photo' src="{{ env('DICTORPUS_URL').$photo['src'] }}" data-big="{{ env('DICTORPUS_URL').$photo['big'] }}" data-title="{{ str_replace('"', '\"', $photo['title']) }}">
+        @endforeach
+    </div>   
+
+    @foreach ($text['audiotexts'] as $route)
+        <div style='display:flex; margin-bottom: 20px'>
+            @include('includes.audio', ['route'=>env('DICTORPUS_URL').$route])
+        </div>
+    @endforeach
+    
+    
+    @if (sizeof($text['cyrtext']))
+        @include('texts._3_columns')
+    @else
+        <div class="row corpus-text">
+            <div class="col-sm-{{$text['transtext'] ? '6' : '12'}}">
+            @include('texts._text')
+            </div>
+        @if ($text['transtext'])               
+            <div class="col-sm-6">
+            @include('texts._transtext')
+            </div>
+        @endif      
+        </div>
+    @endif      
+    
 @endsection
+
+@section('footScriptExtra')
+    {!! js('text')!!}
+    {!! js('photo')!!}
+@stop
+
+@section('jqueryFunc')
+    highlightSentences();
+    openBigPhoto('.photo');
+    toggleColumns();
+@stop
