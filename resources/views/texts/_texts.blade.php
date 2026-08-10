@@ -1,7 +1,4 @@
-@extends('layouts.base')
-
 @section('title', trans('navigation.texts'))
-@section('h1', trans('navigation.ethnographic_texts'))
 
 @section('headExtra')
         {!! css('select2.min') !!}
@@ -10,7 +7,7 @@
 @endsection
 
 @section('search_form')
-    @include('texts._search_form', ['route'=>'texts.ethnography'])
+    @include('texts._search_form', ['route'=>'texts.'. $corpus])
     @include('includes.found_records', ['n_records'=>$total])
 @endsection
 
@@ -65,7 +62,7 @@
             </tbody>
         </table>
 
-        @include('includes.pagination', ['route' => 'texts.ethnography'])
+        @include('includes.pagination', ['route' => 'texts.'. $corpus])
     @else
         <p>{{ __('messages.records_not_found') }}</p>
     @endif
@@ -102,7 +99,7 @@
             placeholder: '{{ trans('text.region') }}',
             width: '100%'
         });
-    selectDistrict('search_birth_region', '{{ __('text.district') }}');
-    selectPlace('search_birth_region', 'search_birth_district', '{{ __('text.place') }}');
+    selectDistrict('search_region', '{{ __('text.district') }}');
+    selectPlace('search_region', 'search_district', '{{ __('text.place') }}');
     selectTopic();
 @stop

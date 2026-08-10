@@ -14,6 +14,12 @@ return [
     'dialect' => 'dialect',
     'district' => 'District',
 
+    'folklore_genres' => [
+        19 => 'Lamentations', 
+        52 => 'Spiritual verses', 
+        93 => 'Legendary Runes'
+    ],
+    
     'genre' => 'genre',
     
     'informant' => 'Informant',

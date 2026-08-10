@@ -4,7 +4,7 @@ return [
     'about_full' => 'О проекте',
     'bible' => 'Библейские тексты',
     'ethnographic_texts' => 'Этнографические тексты',
-    'ethnography' => 'Этнография',
+    'ethnographic' => 'Этнография',
     'folklore' => 'Фольклор',
     'library' => 'Библиотека',
     'map' => 'Карта',

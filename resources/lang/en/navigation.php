@@ -4,7 +4,7 @@ return [
     'about_full' => 'About the project',
     'bible' => 'Biblical texts',
     'ethnographic_texts' => 'Ethnographic texts',
-    'ethnography' => 'Ethnography',
+    'ethnographic' => 'Ethnography',
     'folklore' => 'Folklore',
     'library' => 'Library',
     'map' => 'Map',

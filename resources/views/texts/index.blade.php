@@ -10,10 +10,10 @@
 @section('main')
     <div class="row text-sec-link">
         <div class="col-sm-6">
-            <a href="{{ route('texts.ethnography') }}">{{ __('navigation.ethnography') }}</a>
+            <a href="{{ route('texts.ethnographic') }}">{{ __('navigation.ethnographic') }}</a>
         </div>
         <div class="col-sm-6">
-            <a href="#">{{ __('navigation.folklore') }}</a>
+            <a href="{{ route('texts.folklore') }}">{{ __('navigation.folklore') }}</a>
         </div>
         <div class="col-sm-6">
             <a href="#">{{ __('navigation.bible') }}</a>

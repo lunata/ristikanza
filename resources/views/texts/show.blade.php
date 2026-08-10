@@ -1,7 +1,9 @@
 @extends('layouts.page')
 
 @section('title', trans('navigation.texts'))
-@section('h1', isset($url_args['search_corpus']) && isset(__('text.corpuses')[$url_args['search_corpus']]) ? __('text.corpuses')[$url_args['search_corpus']] : __('navigation.texts'))
+@section('h1', isset($url_args['search_corpus']) && isset(__('text.corpuses')[$url_args['search_corpus']]) 
+                ? __('text.corpuses')[$url_args['search_corpus']]. (isset(__('text.folklore_genres')[$url_args['search_genre']]) ? '. '. __('text.folklore_genres')[$url_args['search_genre']] : '') 
+                : __('navigation.texts'))
 
 @section('headExtra')
         {!! css('select2.min') !!}
@@ -12,12 +14,12 @@
 @section('page_top')
     <h2>
         {{ sizeof($text['authors']) ? join(', ', $text['authors']).'.' : '' }}
-        {!! highlight($text['title'], $url_args['search_w'] ?? '', 'search-word') !!}
+        {{ $text['title'] }}
     </h2>
 @stop
 
 @section('top_links')
-    <a href="{{ route('texts.index') }}?{{ $args_by_get }}" class="top-icon to-list">{!! __('messages.back_to_list') !!}</a>
+    <a href="{{ route('texts.'. $corpus_route) }}{{ $args_by_get }}" class="top-icon to-list">{!! __('messages.back_to_list') !!}</a>
 @stop
 
 @section('content')

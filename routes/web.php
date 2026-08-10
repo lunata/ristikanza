@@ -37,7 +37,7 @@ Route::group(
         Route::get('/texts/bible', [TextController::class, 'bible'])->name('texts.bible');
         Route::get('/texts/dialects', [TextController::class, 'dialects'])->name('texts.dialects');
         Route::get('/texts/districts', [TextController::class, 'districts'])->name('texts.districts');
-        Route::get('/texts/ethnography', [TextController::class, 'ethnography'])->name('texts.ethnography');
+        Route::get('/texts/ethnographic', [TextController::class, 'ethnographic'])->name('texts.ethnographic');
         Route::get('/texts/folklore', [TextController::class, 'folklore'])->name('texts.folklore');
         Route::get('/texts/genres', [TextController::class, 'genres'])->name('texts.genres');
         Route::get('/texts/monuments', [TextController::class, 'monuments'])->name('texts.monuments');

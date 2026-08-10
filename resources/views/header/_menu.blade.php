@@ -32,7 +32,7 @@
                 </a>
 
                 <div class="dropdown-menu" aria-labelledby="navbarDropdown1">
-            @foreach (['ethnography', 'folklore', 'bible', 'monuments'] as $title)
+            @foreach (['ethnographic', 'folklore', 'bible', 'monuments'] as $title)
                     <a  class="dropdown-item" href="{{ route('texts.'.$title) }}">{{ __('navigation.'.$title) }}</a>
             @endforeach
                 </div>

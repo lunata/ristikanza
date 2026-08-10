@@ -27,7 +27,7 @@ function selectDistrict(region_var = 'search_event_region', placeholder = '', se
     });
 }
 
-function selectPlace(district_var = 'search_event_district', region_var = 'search_event_region', placeholder = '', selector = '.select-place', allow_clear = false) {
+function selectPlace(region_var = 'search_event_region', district_var = 'search_event_district', placeholder = '', selector = '.select-place', allow_clear = false) {
     $(selector).select2({
         allowClear: allow_clear,
         placeholder: placeholder,

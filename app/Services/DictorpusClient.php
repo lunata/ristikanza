@@ -22,19 +22,22 @@ class DictorpusClient
 
     protected function cacheKey(string $prefix, array $params = []): string
     {
-        $params = $this->normalizeParams($params);
-        return 'dictorpus.' . $prefix . '.' . md5(http_build_query($params));
+        $key = 'dictorpus.' . $prefix;
+        if (sizeof($params)) {
+            $params = $this->normalizeParams($params);
+            $key .= '.' . md5(http_build_query($params));
+        }
+        return $key;
     }
 
-
-    public function getEthnographicTexts(array $params = []): array
+    protected function responseRemember(string $key, $time, $route, array $params = [])
     {
         $locale = app()->getLocale();
-
+        
         return Cache::remember(
-            $this->cacheKey('texts.' . $locale, $params),
-            now()->addMinutes(30),
-            function () use ($params, $locale) {
+            $this->cacheKey($key. '.' . $locale, $params),                 
+            $time,
+            function () use ($params, $locale, $route) {
                 $response = Http::acceptJson()
                     ->withHeaders([
                         'Accept-Language' => $locale,
@@ -43,7 +46,7 @@ class DictorpusClient
                     ->timeout(15)
                     ->get(
                         rtrim(config('services.dictorpus.url'), '/') .
-                            '/api/ristikanza/texts/ethnographic',
+                            '/api/ristikanza/texts/'. $route,
                         $params
                     );
 
@@ -54,156 +57,19 @@ class DictorpusClient
         );
     }
 
+    public function getTexts(string $route, array $params = []): array
+    {
+        return $this->responseRemember('texts', now()->addMinutes(30), $route, $params);
+    }
+
     public function getText($id)
     {
-        return Cache::remember(
-            'dictorpus.text.' . $id,
-            now()->addHours(6),
-            function () use ($id) {
-                $response = Http::acceptJson()
-                    ->withToken(config('services.dictorpus.token'))
-                    ->timeout(10)
-                    ->get(
-                        rtrim(config('services.dictorpus.url'), '/')
-                            . '/api/ristikanza/texts/' . $id
-                    );
-
-                $response->throw();
-
-                return $response->json('data');
-            }
-        );
+        return $this->responseRemember('text.'. $id, now()->addHours(6), $id, []);
     }
 
-    public function getTextFormValues(): array
+    public function getTextFormValues(array $params = [], $route='form-values'): array
     {
-        $locale = app()->getLocale();
-
-        $key = $this->cacheKey(
-            'dictorpus.text.form-values.' . $locale,
-            []
-        );
-
-        return Cache::remember($key, now()->addDay(), function () use ($locale) {
-            $response = Http::acceptJson()
-                ->withHeaders([
-                    'Accept-Language' => $locale,
-                ])
-                ->withToken(config('services.dictorpus.token'))
-                ->timeout(15)
-                ->get(
-                    rtrim(config('services.dictorpus.url'), '/') .
-                        '/api/ristikanza/texts/form-values'
-                );
-
-            $response->throw();
-
-            return $response->json();
-        });
+        return $this->responseRemember('texts.'. $route, now()->addDay(), $route, $params);
     }
 
-    public function getDialects(array $params = []): array
-    {
-        $locale = app()->getLocale();
-
-        $response = Http::acceptJson()
-            ->withHeaders([
-                'Accept-Language' => $locale,
-            ])
-            ->withToken(config('services.dictorpus.token'))
-            ->timeout(15)
-            ->get(
-                rtrim(config('services.dictorpus.url'), '/') .
-                    '/api/ristikanza/texts/dialects',
-                $params
-            );
-
-        $response->throw();
-
-        return $response->json();
-    }
-
-    public function getDistricts(array $params = []): array
-    {
-        $locale = app()->getLocale();
-
-        $response = Http::acceptJson()
-            ->withHeaders([
-                'Accept-Language' => $locale,
-            ])
-            ->withToken(config('services.dictorpus.token'))
-            ->timeout(15)
-            ->get(
-                rtrim(config('services.dictorpus.url'), '/') .
-                    '/api/ristikanza/texts/districts',
-                $params
-            );
-
-        $response->throw();
-
-        return $response->json();
-    }
-
-    public function getGenres(array $params = []): array
-    {
-        $locale = app()->getLocale();
-
-        $response = Http::acceptJson()
-            ->withHeaders([
-                'Accept-Language' => $locale,
-            ])
-            ->withToken(config('services.dictorpus.token'))
-            ->timeout(15)
-            ->get(
-                rtrim(config('services.dictorpus.url'), '/') .
-                    '/api/ristikanza/texts/genres',
-                $params
-            );
-
-        $response->throw();
-
-        return $response->json();
-    }
-
-    public function getPlaces(array $params = []): array
-    {
-        $locale = app()->getLocale();
-
-        $response = Http::acceptJson()
-            ->withHeaders([
-                'Accept-Language' => $locale,
-            ])
-            ->withToken(config('services.dictorpus.token'))
-            ->timeout(15)
-            ->get(
-                rtrim(config('services.dictorpus.url'), '/') .
-                    '/api/ristikanza/texts/places',
-                $params
-            );
-
-        $response->throw();
-
-        return $response->json();
-    }
-
-    public function getTopics(array $params = []): array
-    {
-        $locale = app()->getLocale();
-
-        $response = Http::acceptJson()
-            ->withHeaders([
-                'Accept-Language' => $locale,
-            ])
-            ->withToken(config('services.dictorpus.token'))
-            ->timeout(15)
-            ->get(
-                rtrim(config('services.dictorpus.url'), '/') .
-                    '/api/ristikanza/texts/topics',
-                $params
-            );
-
-        $response->throw();
-
-        return $response->json();
-    }
 }

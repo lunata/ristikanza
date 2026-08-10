@@ -1,5 +1,7 @@
 {{ html()->form('GET', route($route))->open(); }}
 <input id='search_corpus' type="hidden" name='search_corpus' value='{{ $url_args['search_corpus'] }}'>
+<input id='search_genre' type="hidden" name='search_genre' value='{{ $url_args['search_genre'] }}'>
+
 <div class="row">
     <div class="col-md-4">
         <!-- Language -->
