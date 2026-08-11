@@ -8,10 +8,17 @@
 @endsection
 
 @section('main')
-    <div class="row text-sec-link">
-    @foreach ($genres as $genre_id => $genre_name)
+    <div class="row">
+    @foreach ($genres as $genre_id => $genre_info)
         <div class="col">
-            <a href="{{ route('texts.folklore', ['search_genre'=>$genre_id]) }}">{{ $genre_name }}</a>
+            <p class="text-sec-link">
+                <a href="{{ route('texts.folklore', ['search_genre'=>$genre_id]) }}">{{ $genre_info['name'] }}</a>
+            </p>
+            @foreach ($genre_info['genres'] as $sgenre_id => $genre_name)
+            <p class="text-sec-link-li">
+                <a href="{{ route('texts.folklore', ['search_genre'=>$sgenre_id]) }}">{{ $genre_name }}</a>
+            </p>
+            @endforeach
         </div>
     @endforeach
     </div>

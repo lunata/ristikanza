@@ -33,9 +33,9 @@ class DictorpusClient
     protected function responseRemember(string $key, $time, $route, array $params = [])
     {
         $locale = app()->getLocale();
-        
+
         return Cache::remember(
-            $this->cacheKey($key. '.' . $locale, $params),                 
+            $this->cacheKey($key . '.' . $locale, $params),
             $time,
             function () use ($params, $locale, $route) {
                 $response = Http::acceptJson()
@@ -46,7 +46,7 @@ class DictorpusClient
                     ->timeout(15)
                     ->get(
                         rtrim(config('services.dictorpus.url'), '/') .
-                            '/api/ristikanza/texts/'. $route,
+                            '/api/ristikanza/texts/' . $route,
                         $params
                     );
 
@@ -64,12 +64,16 @@ class DictorpusClient
 
     public function getText($id)
     {
-        return $this->responseRemember('text.'. $id, now()->addHours(6), $id, []);
+        return $this->responseRemember('text.' . $id, now()->addHours(6), $id, []);
     }
 
-    public function getTextFormValues(array $params = [], $route='form-values'): array
+    public function getTextFormValues(array $params = [], $route = 'form-values'): array
     {
-        return $this->responseRemember('texts.'. $route, now()->addDay(), $route, $params);
+        return $this->responseRemember('texts.' . $route, now()->addDay(), $route, $params);
     }
 
+    public function getFolkloreGenres(): array
+    {
+        return $this->responseRemember('texts.folklore_genres', now()->addDay(), 'folklore_genres', []);
+    }
 }

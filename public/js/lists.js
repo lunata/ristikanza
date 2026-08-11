@@ -158,7 +158,33 @@ function selectSource(locale = 'ru', placeholder = '', allow_clear = true, selec
     });
 }
 
-function selectTopic(corpus_var = 'search_corpus', placeholder = '', selector = '.select-topic', allow_clear = false) {
+function selectPlot(corpus_var = 'search_corpus', genre_var = 'search_genre', placeholder = '', selector = '.select-plot', allow_clear = false) {
+    $(selector).select2({
+        allowClear: allow_clear,
+        placeholder: placeholder,
+        width: '100%',
+        ajax: {
+            url: "/texts/plots",
+            dataType: 'json',
+            delay: 250,
+            data: function (params) {
+                return {
+                    q: params.term, // search term
+                    corpus_id: $("#" + corpus_var).val(),
+                    genre_id: $("#" + genre_var).val()
+                };
+            },
+            processResults: function (data) {
+                return {
+                    results: data
+                };
+            },
+            cache: true
+        }
+    });
+}
+
+function selectTopic(corpus_var = 'search_corpus', genre_var = 'search_genre', plot_var = 'search_plot', placeholder = '', selector = '.select-topic', allow_clear = false) {
     $(selector).select2({
         allowClear: allow_clear,
         placeholder: placeholder,
@@ -170,7 +196,9 @@ function selectTopic(corpus_var = 'search_corpus', placeholder = '', selector = 
             data: function (params) {
                 return {
                     q: params.term, // search term
-                    corpus_id: $("#" + corpus_var).val()
+                    corpus_id: $("#" + corpus_var).val(),
+                    genre_id: $("#" + genre_var).val(),
+                    plot_id: selectedValuesToURL("#" + plot_var),
                 };
             },
             processResults: function (data) {

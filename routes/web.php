@@ -42,6 +42,7 @@ Route::group(
         Route::get('/texts/genres', [TextController::class, 'genres'])->name('texts.genres');
         Route::get('/texts/monuments', [TextController::class, 'monuments'])->name('texts.monuments');
         Route::get('/texts/places', [TextController::class, 'places'])->name('texts.places');
+        Route::get('/texts/plots', [TextController::class, 'plots'])->name('texts.plots');
         Route::get('/texts/topics', [TextController::class, 'topics'])->name('texts.topics');
         Route::get('/texts/{id}', [TextController::class, 'show'])->name('texts.show')->where('id', '[0-9]+');
         Route::get('/texts/', [TextController::class, 'index'])->name('texts.index');

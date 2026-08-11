@@ -2,8 +2,9 @@
 return [
     'archive_krc' => 'audio archive of ILLH, KarRC RAS',
     'author_or_trans' => 'Author or translator',
-    
-    'corpuses' =>[
+
+    'celebration_places' => 'Settlements to which the holidays mentioned',
+    'corpuses' => [
         2 => 'Biblical texts',
         4 => 'Folklore texts',
         12 => 'Monuments of writing',
@@ -15,13 +16,13 @@ return [
     'district' => 'District',
 
     'folklore_genres' => [
-        19 => 'Lamentations', 
-        52 => 'Spiritual verses', 
+        19 => 'Lamentations',
+        52 => 'Spiritual verses',
         93 => 'Legendary Runes'
     ],
-    
+
     'genre' => 'genre',
-    
+
     'informant' => 'Informant',
     'informants' => 'Informants',
 
@@ -48,13 +49,13 @@ return [
 
     'sentences' => 'Sentences',
     'source' => 'Source',
-    
+
     'text_fragment' => 'Fragment of text',
     'title' => 'Title',
     'topic' => 'Topic',
     'topics' => 'Topics',
     'translation' => 'Translation / Original',
-    
+
     'with_audio' => 'with audio files',
     'with_photo' => 'with photo',
     'with_transtext' => 'with translation'

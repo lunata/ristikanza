@@ -101,5 +101,6 @@
         });
     selectDistrict('search_region', '{{ __('text.district') }}');
     selectPlace('search_region', 'search_district', '{{ __('text.place') }}');
+    /* selectPlot(); */
     selectTopic();
 @stop

@@ -113,7 +113,26 @@ class TextController extends Controller
             $params[$k] = $validated[$k] ?? null;
         }
 
-        foreach (['search_birth_district', 'search_birth_region', 'search_event_region', 'search_birth_place', 'search_informant', 'search_region', 'search_cycle', 'search_dialect', 'search_district', 'search_event_district', 'search_event_place', 'search_lang', 'search_motive', 'search_place', 'search_plot', 'search_topic'] as $k) {
+        foreach (
+            [
+                'search_birth_district',
+                'search_birth_region',
+                'search_event_region',
+                'search_birth_place',
+                'search_informant',
+                'search_region',
+                'search_cycle',
+                'search_dialect',
+                'search_district',
+                'search_event_district',
+                'search_event_place',
+                'search_lang',
+                'search_motive',
+                'search_place',
+                'search_plot',
+                'search_topic'
+            ] as $k
+        ) {
             $params[$k] = array_values(array_unique($validated[$k] ?? []));
         }
 
@@ -142,27 +161,34 @@ class TextController extends Controller
         $text = $this->dictorpusClient->getText($id);
         //dd($text);
         if (isset($text['source']['number'])) {
-            $text['source']['number'] = '<b>'.trans('text.archive_krc').':</b> '.$text['source']['number'];
-
+            $text['source']['number'] = '<b>' . trans('text.archive_krc') . ':</b> ' . $text['source']['number'];
         }
         $url_args = $this->searchArgs($request);
-        
-        if (!isset($url_args['search_corpus']) && is_array($text['corpuses']) && sizeof($text['corpuses'])>0) {
-            $url_args['search_corpus'] = array_keys($text['corpuses'])[0];
+
+        if (!isset($url_args['search_corpus']) && $text['corpus_id']) {
+            $url_args['search_corpus'] = $text['corpus_id'];
         }
-        
+
         $args_by_get = search_values_by_URL($url_args);
-        
+
         $corpus_route = Text::routesByCorpusId($url_args['search_corpus']) ?? 'index';
-        
+
+        $h1 = isset($url_args['search_corpus']) && isset(__('text.corpuses')[$url_args['search_corpus']])
+            ? __('text.corpuses')[$url_args['search_corpus']] .
+            (isset($url_args['search_genre']) && isset(__('text.folklore_genres')[$url_args['search_genre']])
+                ? '. ' . __('text.folklore_genres')[$url_args['search_genre']] : '')
+            : __('navigation.texts');
+
         return view('texts.show', compact(
-                'corpus_route', 
-                'text', 
-                'args_by_get', 
-                'url_args'));
+            'corpus_route',
+            'h1',
+            'text',
+            'args_by_get',
+            'url_args'
+        ));
     }
-    
-    private function texts($corpus, array $url_args)
+
+    private function texts(string $corpus, array $url_args)
     {
         $result = $this->dictorpusClient->getTexts($corpus, $url_args);
         //dd($result);
@@ -172,12 +198,17 @@ class TextController extends Controller
         $total = $result['total'] ?? 0;
         $per_page = $result['per_page'] ?? 10;
         $url_args = $result['url_args'] ?? $url_args;
-        
+
         $args_by_get = search_values_by_URL($url_args);
 
-        $form_values = $this->dictorpusClient->getTextFormValues();
+        $form_values = $this->dictorpusClient->getTextFormValues(
+            [
+                'corpus_id' => $url_args['search_corpus'] ?? null,
+                'genre_id' => $url_args['search_genre'] ?? null
+            ]
+        );
         //dd($form_values);
-        return view('texts.'. $corpus, compact(
+        return view('texts.' . $corpus, compact(
             'current_page',
             'form_values',
             'last_page',
@@ -193,19 +224,19 @@ class TextController extends Controller
     public function ethnographic(Request $request)
     {
         $url_args = $this->searchArgs($request);
-        
+
         return $this->texts('ethnographic', $url_args);
     }
 
-    public function folklore(Request $request) {
+    public function folklore(Request $request)
+    {
         $url_args = $this->searchArgs($request);
-        
-        $genres = trans('text.folklore_genres');
-        
-        if (!isset($url_args['search_genre']) || !isset($genres[$url_args['search_genre']])) {
+
+        if (!isset($url_args['search_genre'])) {
+            $genres = $this->dictorpusClient->getFolkloreGenres();
             return view('texts.folklore_genres', compact('genres'));
         }
-        
+
         return $this->texts('folklore', $url_args);
     }
 
@@ -278,12 +309,30 @@ class TextController extends Controller
         $params = $request->validate([
             'q' => ['nullable', 'string', 'max:255'],
             'corpus_id' => ['nullable', 'integer', 'min:1'],
+            'genre_id' => ['nullable', 'integer', 'min:1'],
+            'plot_id' => ['nullable', 'array'],
+            'plot_id.*' => ['integer', 'min:1'],
         ]);
 
         $params['q'] = trim((string)($params['q'] ?? ''));
 
         return response()->json(
             $this->dictorpusClient->getTextFormValues($params, 'topics')
+        );
+    }
+
+    public function plots(Request $request)
+    {
+        $params = $request->validate([
+            'q' => ['nullable', 'string', 'max:255'],
+            'corpus_id' => ['nullable', 'integer', 'min:1'],
+            'genre_id' => ['nullable', 'integer', 'min:1'],
+        ]);
+
+        $params['q'] = trim((string)($params['q'] ?? ''));
+
+        return response()->json(
+            $this->dictorpusClient->getTextFormValues($params, 'plots')
         );
     }
 }

@@ -1,6 +1,6 @@
 @extends('layouts.base')
 
-@section('h1', __('navigation.'. $corpus). '. '. 
-             (__('text.folklore_genres')[$url_args['search_genre']] ?? ''))
+@section('h1', __('navigation.'. $corpus).
+                ( $url_args['genre_name'] ? '. '.$url_args['genre_name'] : ''))
 
 @include('texts._texts')
