@@ -81,3 +81,11 @@ s {
 .photo-in-modal {
     text-align: center;
 }
+
+.leaflet-container a {
+    font-size: 1rem;
+}
+
+.leaflet-container ul {
+    padding-left: 20px;
+}

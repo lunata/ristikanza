@@ -40,6 +40,7 @@ Route::group(
         Route::get('/texts/ethnographic', [TextController::class, 'ethnographic'])->name('texts.ethnographic');
         Route::get('/texts/folklore', [TextController::class, 'folklore'])->name('texts.folklore');
         Route::get('/texts/genres', [TextController::class, 'genres'])->name('texts.genres');
+        Route::get('/texts/map', [TextController::class, 'map'])->name('texts.map');
         Route::get('/texts/monuments', [TextController::class, 'monuments'])->name('texts.monuments');
         Route::get('/texts/places', [TextController::class, 'places'])->name('texts.places');
         Route::get('/texts/plots', [TextController::class, 'plots'])->name('texts.plots');

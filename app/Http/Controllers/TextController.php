@@ -335,4 +335,29 @@ class TextController extends Controller
             $this->dictorpusClient->getTextFormValues($params, 'plots')
         );
     }
+
+    public function map()
+    {
+        $places = $this->dictorpusClient->getObjsForMap();
+        $bounds = Text::getBounds($places);
+
+        $objs = [];
+        foreach (array_values($places) as $obj) {
+            $popup = '<b>' . $obj['place'] . '</b><ul>';
+            foreach ($obj['texts'] as $text_id => $text_title) {
+                $popup .= '<li><a href="' . route('texts.show', $text_id) . '">' . $text_title . '</a></li>';
+            }
+            $popup .= '</ul>';
+
+            $objs[] = [
+                'lat' => $obj['lat'],
+                'lon' => $obj['lon'],
+                'color' => 'blue',
+                'popup' => $popup
+            ];
+        }
+        //dd($objs);
+
+        return view('texts.map', compact('bounds', 'objs'));
+    }
 }

@@ -39,7 +39,7 @@
             </li>
 
             <li class="nav-item dropdown"> {{-- КАРТА --}}
-                <a href="#" class="nav-link" id="navbarDropdown1" role="button" aria-haspopup="true" aria-expanded="false">
+                <a href="{{ route('texts.map') }}" class="nav-link" id="navbarDropdown1" role="button" aria-haspopup="true" aria-expanded="false">
                     {{ __('navigation.map') }}
                 </a>
             </li>
