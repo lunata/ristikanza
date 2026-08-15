@@ -77,8 +77,8 @@ class DictorpusClient
         return $this->responseRemember('texts.folklore_genres', now()->addDay(), 'folklore_genres', []);
     }
 
-    public function getObjsForMap(): array
+    public function getObjsForMap(array $params = []): array
     {
-        return $this->responseRemember('texts.for_map', now()->addMinutes(30), 'for_map', []);
+        return $this->responseRemember('texts.for_map', now()->addMinutes(30), 'for_map', $params);
     }
 }

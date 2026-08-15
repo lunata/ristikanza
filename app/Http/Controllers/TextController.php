@@ -151,6 +151,30 @@ class TextController extends Controller
         });
     }
 
+    private function searchArgsForMap(Request $request): array
+    {
+        $validated = $request->validate([
+            'search_district' => ['nullable', 'array'],
+            'search_district.*' => ['integer', 'min:1'],
+
+            'search_region' => ['nullable', 'array'],
+            'search_region.*' => ['integer', 'min:1'],
+
+            'search_topic' => ['nullable', 'array'],
+            'search_topic.*' => ['integer', 'min:1'],
+        ]);
+
+        $params = [];
+
+        foreach (['search_district', 'search_region', 'search_topic'] as $k) {
+            $params[$k] = array_values(array_unique($validated[$k] ?? []));
+        }
+
+        return array_filter($params, function ($value) {
+            return $value !== null && $value !== '' && $value !== [];
+        });
+    }
+
     public function index()
     {
         return view('texts.index');
@@ -336,9 +360,11 @@ class TextController extends Controller
         );
     }
 
-    public function map()
+    public function map(Request $request)
     {
-        $places = $this->dictorpusClient->getObjsForMap();
+        $url_args = $this->searchArgsForMap($request);
+        $url_args['genre_id'] = Text::ETHNO_GENRE;
+        $places = $this->dictorpusClient->getObjsForMap($url_args);
         $bounds = Text::getBounds($places);
 
         $objs = [];
@@ -357,7 +383,8 @@ class TextController extends Controller
             ];
         }
         //dd($objs);
-
-        return view('texts.map', compact('bounds', 'objs'));
+        $form_values = $this->dictorpusClient->getTextFormValues($url_args);
+//dd($form_values);
+        return view('texts.map', compact('bounds', 'form_values', 'objs', 'url_args'));
     }
 }

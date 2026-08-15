@@ -17,7 +17,12 @@
     {!! css('texts') !!}
 @stop
 
-@section('main')
+@section('search_form')
+    @include('texts._search_map_form', ['route'=>'texts.map'])
+    @include('includes.found_objs', ['n_records'=>sizeof($objs)])
+@endsection
+
+@section('wide-block')
     <div id="mapid" style="width: 100%; height: 1200px;"></div>
 @stop
 
@@ -29,4 +34,10 @@
             'lon' => 0, 'lat' => 0,
             'cluster' => true,
             'bounds' => $bounds])
+@endsection
+
+@section('jqueryFunc')
+    $('.select-region').select2();
+    selectDistrict('search_region');
+    $('.select-topic').select2();
 @endsection

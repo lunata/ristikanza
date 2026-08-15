@@ -10,6 +10,7 @@ class Text
         12 => 'monuments',
         15 => 'ethnographic'
     ];
+    const ETHNO_GENRE = 87;
 
     public static function routesByCorpusId($corpus_id)
     {
