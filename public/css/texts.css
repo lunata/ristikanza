@@ -89,3 +89,14 @@ s {
 .leaflet-container ul {
     padding-left: 20px;
 }
+
+.book-b {
+    background-color: aliceblue;
+    box-shadow: 5px 5px 10px #999;
+    padding: 20px 10px;
+    text-align: center;
+}
+
+.book-title {
+    margin: 10px 0 0;
+}
