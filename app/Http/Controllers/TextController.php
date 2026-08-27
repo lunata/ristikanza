@@ -266,7 +266,11 @@ class TextController extends Controller
 
     public function bible(Request $request) {}
 
-    public function monuments(Request $request) {}
+    public function monuments(Request $request)
+    {
+        $books = $this->dictorpusClient->getMonumentBooks();
+        return view('texts.monument_books', compact('books'));
+    }
 
     public function genres(Request $request)
     {
@@ -384,7 +388,7 @@ class TextController extends Controller
         }
         //dd($objs);
         $form_values = $this->dictorpusClient->getTextFormValues($url_args);
-//dd($form_values);
+        //dd($form_values);
         return view('texts.map', compact('bounds', 'form_values', 'objs', 'url_args'));
     }
 }

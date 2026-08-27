@@ -19,7 +19,7 @@
             <a href="#">{{ __('navigation.bible') }}</a>
         </div>
         <div class="col-sm-6">
-            <a href="#">{{ __('navigation.monuments') }}</a>
+            <a href="{{ route('texts.monuments') }}">{{ __('navigation.monuments') }}</a>
         </div>
     </div>
 @endsection
