@@ -269,7 +269,15 @@ class TextController extends Controller
     public function monuments(Request $request)
     {
         $books = $this->dictorpusClient->getMonumentBooks();
-        return view('texts.monument_books', compact('books'));
+        $book_id = $request->book_id;
+        if (!$book_id || empty($books[$book_id])) {
+            return view('texts.monument_books', compact('books'));
+        }
+
+        $book_title = $books[$book_id]['title'];
+        $texts = $this->dictorpusClient->getMonumentTexts(['publication_id' => $book_id]);
+        dd($texts);
+        return view('texts.monuments', compact('book_title', 'texts'));
     }
 
     public function genres(Request $request)

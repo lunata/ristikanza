@@ -15,7 +15,7 @@
         @if ($book_info['photo'])
                 <img class='photo' src="{{ config('services.dictorpus.url').$book_info['photo'] }}">
         @endif
-                <p class="book-title">{{ $book_info['title'] }}</p>
+                <p class="book-title"><a href="{{ route('texts.monuments', ['book_id' => $book_id])}}">{{ $book_info['title'] }}</a></p>
             </div>
         </div>
     @endforeach

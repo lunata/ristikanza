@@ -93,8 +93,13 @@ s {
 .book-b {
     background-color: aliceblue;
     box-shadow: 5px 5px 10px #999;
-    padding: 20px 10px;
+    margin-bottom: 20px;
+    padding: 20px;
     text-align: center;
+}
+
+.book-b img {
+    width: 100%;
 }
 
 .book-title {

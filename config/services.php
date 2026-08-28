@@ -37,6 +37,7 @@ return [
 
     'dictorpus' => [
         'url' => env('DICTORPUS_URL'),
+        'api_url' => env('DICTORPUS_API_URL'),
         'token' => env('DICTORPUS_API_TOKEN'),
     ],
 ];

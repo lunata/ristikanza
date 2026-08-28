@@ -38,6 +38,17 @@ class DictorpusClient
             $this->cacheKey($key . '.' . $locale, $params),
             $time,
             function () use ($params, $locale, $route) {
+                $apiUrl = rtrim(
+                    (string) config('services.dictorpus.api_url'),
+                    '/'
+                );
+
+                if (empty($apiUrl)) {
+                    throw new \RuntimeException(
+                        'DICTORPUS_API_URL is not configured.'
+                    );
+                }
+
                 $response = Http::acceptJson()
                     ->withHeaders([
                         'Accept-Language' => $locale,
@@ -45,8 +56,7 @@ class DictorpusClient
                     ->withToken(config('services.dictorpus.token'))
                     ->timeout(15)
                     ->get(
-                        rtrim(config('services.dictorpus.url'), '/') .
-                            '/api/ristikanza/texts/' . $route,
+                        $apiUrl . '/api/ristikanza/texts/' . $route,
                         $params
                     );
 
@@ -77,13 +87,18 @@ class DictorpusClient
         return $this->responseRemember('texts.folklore_genres', now()->addDay(), 'folklore_genres', []);
     }
 
+    public function getObjsForMap(array $params = []): array
+    {
+        return $this->responseRemember('texts.for_map', now()->addMinutes(30), 'for_map', $params);
+    }
+
     public function getMonumentBooks(): array
     {
         return $this->responseRemember('texts.monument_books', now()->addDay(), 'monument_books', []);
     }
 
-    public function getObjsForMap(array $params = []): array
+    public function getMonumentTexts(array $params = []): array
     {
-        return $this->responseRemember('texts.for_map', now()->addMinutes(30), 'for_map', $params);
+        return $this->responseRemember('texts.monuments', now()->addMinutes(30), 'monuments', $params);
     }
 }
