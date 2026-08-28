@@ -24,7 +24,7 @@
 @section('top_links')
     <p>
         <a href="{{ route('oikonyms.index') }}" class="top-icon to-list">
-            {{ __('messages.back_to_list') }}
+            {!! __('messages.back_to_list') !!}
         </a>
     </p>
 @stop

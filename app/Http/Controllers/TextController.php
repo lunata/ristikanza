@@ -84,6 +84,7 @@ class TextController extends Controller
             'search_genre' => ['nullable', 'integer', 'min:1'],
             'search_year_from' => ['nullable', 'integer', 'min:1', 'max:2100'],
             'search_year_to' => ['nullable', 'integer', 'min:1', 'max:2100'],
+            'book_id' => ['nullable', 'integer', 'min:1'],
 
             'sort_by' => ['nullable', 'string'],
             'in_desc' => ['nullable', 'in:0,1'],
@@ -109,7 +110,7 @@ class TextController extends Controller
             $params[$k] = trim((string)($validated[$k] ?? ''));
         }
 
-        foreach (['search_corpus', 'search_genre', 'search_year_from', 'search_year_to'] as $k) {
+        foreach (['search_corpus', 'search_genre', 'search_year_from', 'search_year_to', 'book_id'] as $k) {
             $params[$k] = $validated[$k] ?? null;
         }
 
@@ -268,16 +269,26 @@ class TextController extends Controller
 
     public function monuments(Request $request)
     {
+        $url_args = $this->searchArgs($request);
+        $url_args['search_corpus'] = 12;
+        $url_args = remove_empty($url_args);
+
         $books = $this->dictorpusClient->getMonumentBooks();
         $book_id = $request->book_id;
+
         if (!$book_id || empty($books[$book_id])) {
             return view('texts.monument_books', compact('books'));
         }
 
         $book_title = $books[$book_id]['title'];
-        $texts = $this->dictorpusClient->getMonumentTexts(['publication_id' => $book_id]);
-        dd($texts);
-        return view('texts.monuments', compact('book_title', 'texts'));
+
+        $texts = $this->dictorpusClient->getMonumentTexts([
+            'publication_id' => $book_id
+            ]);
+
+        $texts = $this->sortTextsByPage($texts);
+
+        return view('texts.monuments', compact('book_title', 'texts', 'url_args'));
     }
 
     public function genres(Request $request)
@@ -399,4 +410,54 @@ class TextController extends Controller
         //dd($form_values);
         return view('texts.map', compact('bounds', 'form_values', 'objs', 'url_args'));
     }
+
+    /**
+     * Сортирует тексты книги по первой странице диапазона.
+     *
+     * Входной формат:
+     * [
+     *     <text_id> => [
+     *         'title' => '...',
+     *         'page' => '20–23',
+     *     ],
+     * ]
+     */
+    protected function sortTextsByPage(array $texts): array
+    {
+        uasort($texts, function ($left, $right) {
+            $leftPage = $this->firstPageNumber(
+                isset($left['page']) ? $left['page'] : ''
+            );
+
+            $rightPage = $this->firstPageNumber(
+                isset($right['page']) ? $right['page'] : ''
+            );
+
+            if ($leftPage !== $rightPage) {
+                return $leftPage <=> $rightPage;
+            }
+
+            return strnatcasecmp(
+                isset($left['title']) ? $left['title'] : '',
+                isset($right['title']) ? $right['title'] : ''
+            );
+        });
+
+        return $texts;
+    }
+
+    /**
+     * Возвращает первую страницу из строк:
+     * "3–8", "20–23", "115", "  7–10".
+     *
+     * Тексты без номера страницы уходят в конец оглавления.
+     */
+    protected function firstPageNumber(string $pages): int
+    {
+        if (preg_match('/^\s*(\d+)/u', $pages, $matches)) {
+            return (int) $matches[1];
+        }
+
+        return PHP_INT_MAX;
+    }    
 }

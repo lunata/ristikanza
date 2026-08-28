@@ -105,3 +105,40 @@ s {
 .book-title {
     margin: 10px 0 0;
 }
+
+.monument-contents {
+    max-width: 1000px;
+    margin: 25px 0 40px;
+    padding-left: 28px;
+}
+
+.monument-contents-item {
+    display: flex;
+    align-items: baseline;
+    gap: 8px;
+    margin: 8px 0;
+    padding-left: 6px;
+}
+
+.monument-contents-title {
+    color: inherit;
+    text-decoration: none;
+}
+
+.monument-contents-title:hover,
+.monument-contents-title:focus {
+    color: #41679f;
+    text-decoration: underline;
+}
+
+.monument-contents-leader {
+    flex: 1 1 auto;
+    min-width: 20px;
+    border-bottom: 1px dotted #8d8d8d;
+    transform: translateY(-0.25em);
+}
+
+.monument-contents-pages {
+    flex: 0 0 auto;
+    white-space: nowrap;
+}

@@ -11,7 +11,9 @@
 
 @section('page_top')
     <h2>
-        {{ sizeof($text['authors']) ? join(', ', $text['authors']).'.' : '' }}
+        {{ sizeof($text['authors']) 
+            ? rtrim( join(', ', $text['authors']), '.'). '.' 
+            : '' }}
         {{ $text['title'] }}
     </h2>
 @stop
