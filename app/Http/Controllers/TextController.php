@@ -444,26 +444,30 @@ class TextController extends Controller
      */
     protected function sortTextsByPage(array $texts): array
     {
-        uasort($texts, function ($left, $right) {
-            $leftPage = $this->firstPageNumber(
-                isset($left['page']) ? $left['page'] : ''
-            );
+        $out = [];
+        foreach ($texts as $section => $section_texts) {
+            uasort($section_texts, function ($left, $right) {
+                $leftPage = $this->firstPageNumber(
+                    isset($left['page']) ? $left['page'] : ''
+                );
 
-            $rightPage = $this->firstPageNumber(
-                isset($right['page']) ? $right['page'] : ''
-            );
+                $rightPage = $this->firstPageNumber(
+                    isset($right['page']) ? $right['page'] : ''
+                );
 
-            if ($leftPage !== $rightPage) {
-                return $leftPage <=> $rightPage;
-            }
+                if ($leftPage !== $rightPage) {
+                    return $leftPage <=> $rightPage;
+                }
 
-            return strnatcasecmp(
-                isset($left['title']) ? $left['title'] : '',
-                isset($right['title']) ? $right['title'] : ''
-            );
-        });
+                return strnatcasecmp(
+                    isset($left['title']) ? $left['title'] : '',
+                    isset($right['title']) ? $right['title'] : ''
+                );
+            });
+            $out[$section] = $section_texts;
+        }
 
-        return $texts;
+        return $out;
     }
 
     /**
