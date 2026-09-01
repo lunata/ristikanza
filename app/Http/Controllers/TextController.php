@@ -281,7 +281,7 @@ class TextController extends Controller
         $bible_texts = $this->dictorpusClient->getBibleTexts([
             'publication_id' => $book_id
         ]);
-
+        //dd($bible_texts['texts']);
         $texts = $this->sortTextsByPage($bible_texts['texts']);
         $book_title = $bible_texts['book_title'];
 
