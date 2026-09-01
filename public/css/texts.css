@@ -106,13 +106,13 @@ s {
     margin: 10px 0 0;
 }
 
-.monument-contents {
+.book-contents {
     max-width: 1000px;
     margin: 25px 0 40px;
     padding-left: 28px;
 }
 
-.monument-contents-item {
+.book-contents-item {
     display: flex;
     align-items: baseline;
     gap: 8px;
@@ -120,25 +120,25 @@ s {
     padding-left: 6px;
 }
 
-.monument-contents-title {
+.book-contents-title {
     color: inherit;
     text-decoration: none;
 }
 
-.monument-contents-title:hover,
-.monument-contents-title:focus {
+.book-contents-title:hover,
+.book-contents-title:focus {
     color: #41679f;
     text-decoration: underline;
 }
 
-.monument-contents-leader {
+.book-contents-leader {
     flex: 1 1 auto;
     min-width: 20px;
     border-bottom: 1px dotted #8d8d8d;
     transform: translateY(-0.25em);
 }
 
-.monument-contents-pages {
+.book-contents-pages {
     flex: 0 0 auto;
     white-space: nowrap;
 }

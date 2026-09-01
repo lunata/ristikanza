@@ -1,7 +1,7 @@
 @extends('layouts.page')
 
 @section('title', trans('navigation.texts'))
-@section('h1', trans('navigation.monuments'))
+@section('h1', trans('navigation.bible'))
 
 @section('headExtra')
     {!! css('texts') !!}
@@ -12,7 +12,7 @@
 @stop
 
 @section('top_links')
-    <a href="{{ route('texts.monuments') }}" class="top-icon to-list">{!! __('messages.back_to_list') !!}</a>
+    <a href="{{ route('texts.bible') }}" class="top-icon to-list">{!! __('messages.back_to_list') !!}</a>
 @stop
 
 @section('content')

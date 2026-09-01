@@ -265,7 +265,28 @@ class TextController extends Controller
         return $this->texts('folklore', $url_args);
     }
 
-    public function bible(Request $request) {}
+    public function bible(Request $request)
+    {
+        $url_args = $this->searchArgs($request);
+        $url_args['search_corpus'] = 2;
+        $url_args = remove_empty($url_args);
+
+        $book_id = $request->book_id;
+
+        if (!$book_id) {
+            $books = $this->dictorpusClient->getBibleBooks();
+            return view('texts.bible_books', compact('books'));
+        }
+
+        $bible_texts = $this->dictorpusClient->getBibleTexts([
+            'publication_id' => $book_id
+        ]);
+
+        $texts = $this->sortTextsByPage($bible_texts['texts']);
+        $book_title = $bible_texts['book_title'];
+
+        return view('texts.bible', compact('book_title', 'texts', 'url_args'));
+    }
 
     public function monuments(Request $request)
     {
@@ -273,20 +294,19 @@ class TextController extends Controller
         $url_args['search_corpus'] = 12;
         $url_args = remove_empty($url_args);
 
-        $books = $this->dictorpusClient->getMonumentBooks();
         $book_id = $request->book_id;
 
-        if (!$book_id || empty($books[$book_id])) {
+        if (!$book_id) {
+            $books = $this->dictorpusClient->getMonumentBooks();
             return view('texts.monument_books', compact('books'));
         }
 
-        $book_title = $books[$book_id]['title'];
-
-        $texts = $this->dictorpusClient->getMonumentTexts([
+        $mtexts = $this->dictorpusClient->getMonumentTexts([
             'publication_id' => $book_id
-            ]);
+        ]);
 
-        $texts = $this->sortTextsByPage($texts);
+        $texts = $this->sortTextsByPage($mtexts['texts']);
+        $book_title = $mtexts['book_title'];
 
         return view('texts.monuments', compact('book_title', 'texts', 'url_args'));
     }
@@ -459,5 +479,5 @@ class TextController extends Controller
         }
 
         return PHP_INT_MAX;
-    }    
+    }
 }

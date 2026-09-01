@@ -101,4 +101,14 @@ class DictorpusClient
     {
         return $this->responseRemember('texts.monuments', now()->addMinutes(30), 'monuments', $params);
     }
+
+    public function getBibleBooks(): array
+    {
+        return $this->responseRemember('texts.bible_books', now()->addDay(), 'bible_books', []);
+    }
+
+    public function getBibleTexts(array $params = []): array
+    {
+        return $this->responseRemember('texts.bible', now()->addMinutes(30), 'bible', $params);
+    }
 }
