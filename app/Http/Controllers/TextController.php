@@ -443,32 +443,74 @@ class TextController extends Controller
      * ]
      */
     protected function sortTextsByPage(array $texts): array
-    {
-        $out = [];
-        foreach ($texts as $section => $section_texts) {
-            uasort($section_texts, function ($left, $right) {
-                $leftPage = $this->firstPageNumber(
-                    isset($left['page']) ? $left['page'] : ''
-                );
+{
+    $out = [];
 
-                $rightPage = $this->firstPageNumber(
-                    isset($right['page']) ? $right['page'] : ''
-                );
+    foreach ($texts as $section => $section_texts) {
+        uasort($section_texts, function ($left, $right) {
+            $leftPages = isset($left['page']) ? $left['page'] : '';
+            $rightPages = isset($right['page']) ? $right['page'] : '';
 
-                if ($leftPage !== $rightPage) {
-                    return $leftPage <=> $rightPage;
-                }
+            $leftPage = $this->firstPageNumber($leftPages);
+            $rightPage = $this->firstPageNumber($rightPages);
 
-                return strnatcasecmp(
-                    isset($left['title']) ? $left['title'] : '',
-                    isset($right['title']) ? $right['title'] : ''
-                );
-            });
-            $out[$section] = $section_texts;
-        }
+            /*
+             * Основная сортировка остаётся ровно прежней:
+             *
+             * 3–7
+             * 7–10
+             * 10–12
+             * ...
+             * 26–28
+             */
+            if ($leftPage !== $rightPage) {
+                return $leftPage <=> $rightPage;
+            }
 
-        return $out;
+            /*
+             * Далее сравниваем только записи,
+             * у которых первая страница одинакова.
+             *
+             * 6            раньше 6 об.–7 об.
+             * 39           раньше 39–40
+             */
+
+            $leftReverse = $this->pageStartsOnReverse($leftPages);
+            $rightReverse = $this->pageStartsOnReverse($rightPages);
+
+            /*
+             * Лицевая сторона страницы раньше оборота.
+             */
+            if ($leftReverse !== $rightReverse) {
+                return $leftReverse <=> $rightReverse;
+            }
+
+            $leftRange = $this->pageIsRange($leftPages);
+            $rightRange = $this->pageIsRange($rightPages);
+
+            /*
+             * Одиночная страница раньше диапазона,
+             * начинающегося с той же страницы.
+             */
+            if ($leftRange !== $rightRange) {
+                return $leftRange <=> $rightRange;
+            }
+
+            /*
+             * Если страницы одинаковы и по стороне,
+             * и по наличию диапазона, сортируем по названию.
+             */
+            return strnatcasecmp(
+                isset($left['title']) ? $left['title'] : '',
+                isset($right['title']) ? $right['title'] : ''
+            );
+        });
+
+        $out[$section] = $section_texts;
     }
+
+    return $out;
+}
 
     /**
      * Возвращает первую страницу из строк:
