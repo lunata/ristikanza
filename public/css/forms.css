@@ -392,7 +392,7 @@ th {
 .btn-clear {
     background-color: #dae0e7;
     color: #436286;
-    padding-top: 20px;
+    padding: 20px;
 }
 
 .btn-clear:active,
@@ -410,6 +410,31 @@ th {
    font-size: 1.2rem;
    text-align: right;
 }
+
+.bible-search {
+    padding-bottom: 20px;
+}
+
+.bible-search .output-fields {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.bible-search .output-fields-e {
+    align-items: flex-start;
+}
+
+.bible-search #portion,
+.bible-search .btn-default {
+    margin-bottom: 20px
+}
+
+.bible-search .btn-default {
+    padding: 15px;
+}
+
   
 @media (-webkit-min-device-pixel-ratio: 2),
 (min-resolution: 192dpi) {
@@ -425,9 +450,6 @@ th {
 }
 
 @media screen and (max-width: 395px) {
-    /*    .search-button-b input[type=text]{
-        width: 50px;
-    }*/
 }
 
 @media (min-width: 768px) {
@@ -454,7 +476,11 @@ th {
     .output-fields-e,
     .output-fields-b>input {
         margin: 0;
-    }    
+    }  
+    
+    .output-fields-e {
+        font-size: .8rem;
+    }
 }
 
 @media screen and (min-width: 1200px) {

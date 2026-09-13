@@ -3,7 +3,10 @@ return [
     'archive_krc' => 'audio archive of ILLH, KarRC RAS',
     'author_or_trans' => 'Author or translator',
 
+    'book' => 'Book',
+    
     'celebration_places' => 'Settlements to which the holidays mentioned',
+    'chapter' => 'Chapter',
     'corpuses' => [
         2 => 'Biblical texts',
         4 => 'Folklore texts',
@@ -47,6 +50,7 @@ return [
     'recorders' => 'Recorders',
     'region' => 'Region',
 
+    'search_by_bible' => 'Search by biblical references',
     'sentences' => 'Sentences',
     'source' => 'Source',
 
@@ -56,7 +60,9 @@ return [
     'topics' => 'Topics',
     'translation' => 'Translation / Original',
 
+    'verses' => 'Verses',
     'with_audio' => 'with audio files',
+    'with_parallel' => 'with parallel passages',
     'with_photo' => 'with photo',
     'with_transtext' => 'with translation'
 ];

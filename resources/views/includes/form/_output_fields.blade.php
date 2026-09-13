@@ -1,13 +1,12 @@
 <div class="output-fields">    
-    <div class='row'>
-        <div class='col-sm-4' style='padding-top: 12px;'>
+    <div class='output-fields-b'>
+        <div style='padding: 12px 20px 0 0'>
             @include('includes.formitem._SELECT', 
                     ['name' => 'sort_by', 
                      'values' => $form_values['sort_values'] ?? [],
                      'value' => $url_args['sort_by'] ?? '',
                      ]) 
         </div>
-        <div class='col-sm-8 output-fields-b'>
             <div class='output-fields-e'>
                 <input type="hidden" name="in_desc" value="0">
 
@@ -37,6 +36,5 @@
                  {{ __('messages.clear') }}
              </a>
             <input type="submit" class="btn btn-primary btn-default" value="{{ __('messages.view') }}">
-        </div>
     </div>
 </div>    

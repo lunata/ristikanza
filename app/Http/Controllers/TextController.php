@@ -22,6 +22,9 @@ class TextController extends Controller
         $validated = $request->validate([
             'search_author' => ['nullable', 'string', 'max:255'],
 
+            'search_bible'  => ['nullable', 'array'],
+            'search_bible.*' => ['integer', 'min:1'],
+
             'search_birth_district'  => ['nullable', 'array'],
             'search_birth_district.*' => ['integer', 'min:1'],
 
@@ -82,6 +85,9 @@ class TextController extends Controller
 
             'search_corpus' => ['nullable', 'integer', 'min:1'],
             'search_genre' => ['nullable', 'integer', 'min:1'],
+            'search_chapter' => ['nullable', 'integer', 'min:1'],
+            'search_verse_from' => ['nullable', 'integer', 'min:1'],
+            'search_verse_to' => ['nullable', 'integer', 'min:1'],
             'search_year_from' => ['nullable', 'integer', 'min:1', 'max:2100'],
             'search_year_to' => ['nullable', 'integer', 'min:1', 'max:2100'],
             'book_id' => ['nullable', 'integer', 'min:1'],
@@ -91,6 +97,7 @@ class TextController extends Controller
             'portion' => ['nullable', 'integer'],
             'page' => ['nullable', 'integer', 'min:1'],
             'with_audio' => ['nullable', 'in:0,1'],
+            'with_parallel' => ['nullable', 'in:0,1'],
             'with_photo' => ['nullable', 'in:0,1'],
             'with_transtext' => ['nullable', 'in:0,1'],
         ]);
@@ -110,12 +117,12 @@ class TextController extends Controller
             $params[$k] = trim((string)($validated[$k] ?? ''));
         }
 
-        foreach (['search_corpus', 'search_genre', 'search_year_from', 'search_year_to', 'book_id'] as $k) {
+        foreach (['search_corpus', 'search_genre', 'search_chapter', 'search_verse_from', 'search_verse_to', 'search_year_from', 'search_year_to', 'book_id'] as $k) {
             $params[$k] = $validated[$k] ?? null;
         }
 
         foreach (
-            [
+            [   'search_bible',
                 'search_birth_district',
                 'search_birth_region',
                 'search_event_region',
@@ -147,9 +154,11 @@ class TextController extends Controller
             ]);
         }
 
-        return array_filter($params, function ($value) {
+        $url_args = array_filter($params, function ($value) {
             return $value !== null && $value !== '' && $value !== [];
         });
+        
+        return remove_empty($url_args);
     }
 
     private function searchArgsForMap(Request $request): array
@@ -269,13 +278,18 @@ class TextController extends Controller
     {
         $url_args = $this->searchArgs($request);
         $url_args['search_corpus'] = 2;
-        $url_args = remove_empty($url_args);
 
         $book_id = $request->book_id;
 
         if (!$book_id) {
             $books = $this->dictorpusClient->getBibleBooks();
-            return view('texts.bible_books', compact('books'));
+            
+            $form_values = $this->dictorpusClient->getTextFormValues([
+                'corpus_id' => $url_args['search_corpus'] ?? null,
+                'genre_id' => null
+            ]);
+
+            return view('texts.bible_books', compact('books', 'form_values'));
         }
 
         $bible_texts = $this->dictorpusClient->getBibleTexts([
@@ -288,11 +302,16 @@ class TextController extends Controller
         return view('texts.bible', compact('book_title', 'texts', 'url_args'));
     }
 
+    public function byBible(Request $request)
+    {
+        $url_args = $this->searchArgs($request);
+        $url_args['search_corpus'] = 2;
+    }
+
     public function monuments(Request $request)
     {
         $url_args = $this->searchArgs($request);
         $url_args['search_corpus'] = 12;
-        $url_args = remove_empty($url_args);
 
         $book_id = $request->book_id;
 
