@@ -9,7 +9,7 @@
 @endsection
 
 @section('search_form')
-    @include('texts._bible_search')
+    @include('texts._bible_search', ['is_wide' => true])
     @include('includes.found_records', ['n_records'=>$total])
 @endsection
 

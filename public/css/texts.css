@@ -152,3 +152,130 @@ s {
     min-width: 100% !important;
     box-sizing: border-box;
 }
+
+/*
+ * Широкая форма поиска библейских текстов.
+ *
+ * 1-я строка: язык и книга.
+ * 2-я строка: главы и стихи.
+ */
+.bible-search--wide .bible-search-fields {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 16px 36px;
+}
+
+
+/*
+ * Убираем нижний внешний отступ у последнего поля
+ * внутри ячеек сетки, если include его добавляет.
+ */
+.bible-search--wide .bible-search-field {
+    min-width: 0;
+}
+
+
+/*
+ * В широком варианте два поля диапазона сохраняются
+ * на одной строке внутри своей половины формы.
+ */
+.bible-search--wide .bible-search-range .row {
+    margin-bottom: 0;
+}
+
+
+/*
+ * Нижняя часть: checkbox, количество записей
+ * и две кнопки в одной горизонтальной строке.
+ */
+.bible-search--wide .output-fields {
+    display: flex;
+    align-items: center;
+    flex-wrap: nowrap;
+    gap: 10px;
+}
+
+
+/*
+ * Отступ между чекбоксом с параллельными местами
+ * и блоком количества нужен в обеих версиях формы.
+ */
+.bible-search-parallel {
+    padding-right: 20px;
+}
+
+.bible-search--wide .output-fields-e > div {
+    margin-bottom: 0;
+}
+
+/*
+ * Нижняя строка широкой формы:
+ * чекбокс и количество располагаются рядом.
+ */
+.bible-search--wide .output-fields-e {
+    display: flex;
+    align-items: flex-start;
+    flex: 0 1 auto;
+    gap: 12px;
+    margin-right: auto;
+}
+
+
+/*
+ * Чекбокс начинается на одной верхней линии
+ * с полем количества.
+ */
+.bible-search--wide .bible-search-parallel {
+    align-self: flex-start;
+}
+
+/*
+ * В узком варианте обёртка не должна менять исходную
+ * раскладку: input и подпись ведут себя как раньше,
+ * как прямые дочерние элементы .output-fields-e.
+ */
+.bible-search-portion {
+    display: contents;
+}
+
+
+/*
+ * Только в широком варианте поле количества и его
+ * подпись становятся отдельной flex-группой.
+ */
+.bible-search--wide .bible-search-portion {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+}
+
+
+.bible-search--wide .bible-search-portion #portion {
+    flex: 0 0 60px;
+    width: 60px;
+}
+
+
+.bible-search--wide .bible-search-portion #for-portion {
+    flex: 0 0 auto;
+}
+
+/*
+ * На сравнительно узком экране не сжимаем кнопки
+ * и не ломаем элементы друг о друга: переносим
+ * нижнюю строку аккуратно.
+ */
+@media (max-width: 767px) {
+    .bible-search--wide .bible-search-fields {
+        grid-template-columns: 1fr;
+    }
+
+    .bible-search--wide .output-fields {
+        flex-wrap: wrap;
+    }
+
+    .bible-search--wide .output-fields-e {
+        flex-basis: 100%;
+        margin-right: 0;
+    }
+}
