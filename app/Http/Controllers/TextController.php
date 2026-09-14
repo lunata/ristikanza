@@ -10,7 +10,7 @@ use App\Library\Text;
 
 class TextController extends Controller
 {
-    private DictorpusClient $dictorpusClient;
+    private $dictorpusClient;
 
     public function __construct(DictorpusClient $dictorpusClient)
     {
@@ -119,13 +119,25 @@ class TextController extends Controller
             $params[$k] = trim((string)($validated[$k] ?? ''));
         }
 
-        foreach (['search_corpus', 'search_genre', 'search_chapter_from', 'search_chapter_to', 
-                'search_verse_from', 'search_verse_to', 'search_year_from', 'search_year_to', 'book_id'] as $k) {
+        foreach (
+            [
+                'search_corpus',
+                'search_genre',
+                'search_chapter_from',
+                'search_chapter_to',
+                'search_verse_from',
+                'search_verse_to',
+                'search_year_from',
+                'search_year_to',
+                'book_id'
+            ] as $k
+        ) {
             $params[$k] = $validated[$k] ?? null;
         }
 
         foreach (
-            [   'search_bible',
+            [
+                'search_bible',
                 'search_birth_district',
                 'search_birth_region',
                 'search_event_region',
@@ -160,7 +172,7 @@ class TextController extends Controller
         $url_args = array_filter($params, function ($value) {
             return $value !== null && $value !== '' && $value !== [];
         });
-        
+
         return remove_empty($url_args);
     }
 
@@ -287,7 +299,7 @@ class TextController extends Controller
 
         if (!$book_id) {
             $books = $this->dictorpusClient->getBibleBooks();
-            
+
             $form_values = $this->dictorpusClient->getTextFormValues([
                 'corpus_id' => $url_args['search_corpus'] ?? null
             ]);
@@ -308,7 +320,7 @@ class TextController extends Controller
     public function bibleTexts(Request $request)
     {
         $url_args = $this->searchArgs($request);
-//dd($url_args);
+        //dd($url_args);
         $result = $this->dictorpusClient->getBibleTexts($url_args);
 
         $texts = $result['data'] ?? [];
@@ -324,9 +336,19 @@ class TextController extends Controller
             'corpus_id' => $url_args['search_corpus'] ?? null
         ]);
 
-        return view('texts.bible_texts', 
-            compact('current_page', 'form_values', 'last_page', 'per_page', 
-                    'texts', 'total', 'args_by_get', 'url_args'));
+        return view(
+            'texts.bible_texts',
+            compact(
+                'current_page',
+                'form_values',
+                'last_page',
+                'per_page',
+                'texts',
+                'total',
+                'args_by_get',
+                'url_args'
+            )
+        );
     }
 
     public function monuments(Request $request)
@@ -566,31 +588,31 @@ class TextController extends Controller
 
         return PHP_INT_MAX;
     }
-    
-    /**
-    * Начинается ли обозначение страниц с оборота:
-    *
-    * "6 об.–7 об." -> true
-    * "6–7"          -> false
-    * "6"            -> false
-    */
-   protected function pageStartsOnReverse(string $pages): int
-   {
-       return preg_match(
-           '/^\s*\d+\s*об\.?/ui',
-           $pages
-       ) ? 1 : 0;
-   }
 
-   /**
-    * Является ли запись диапазоном страниц:
-    *
-    * "39"    -> false
-    * "39–40" -> true
-    * "6 об.–7 об." -> true
-    */
-   protected function pageIsRange(string $pages): int
-   {
-       return preg_match('/[–—-]/u', $pages) ? 1 : 0;
-   }
+    /**
+     * Начинается ли обозначение страниц с оборота:
+     *
+     * "6 об.–7 об." -> true
+     * "6–7"          -> false
+     * "6"            -> false
+     */
+    protected function pageStartsOnReverse(string $pages): int
+    {
+        return preg_match(
+            '/^\s*\d+\s*об\.?/ui',
+            $pages
+        ) ? 1 : 0;
+    }
+
+    /**
+     * Является ли запись диапазоном страниц:
+     *
+     * "39"    -> false
+     * "39–40" -> true
+     * "6 об.–7 об." -> true
+     */
+    protected function pageIsRange(string $pages): int
+    {
+        return preg_match('/[–—-]/u', $pages) ? 1 : 0;
+    }
 }
