@@ -4,9 +4,11 @@ return [
     'author_or_trans' => 'Author or translator',
 
     'book' => 'Book',
+    'bible_passage' => 'Bible passage',
     
     'celebration_places' => 'Settlements to which the holidays mentioned',
     'chapter' => 'Chapter',
+    'chapters' => 'Chapters',
     'corpuses' => [
         2 => 'Biblical texts',
         4 => 'Folklore texts',
@@ -62,7 +64,6 @@ return [
 
     'verses' => 'Verses',
     'with_audio' => 'with audio files',
-    'with_parallel' => 'with parallel passages',
     'with_photo' => 'with photo',
     'with_transtext' => 'with translation'
 ];

@@ -142,3 +142,13 @@ s {
     flex: 0 0 auto;
     white-space: nowrap;
 }
+
+.select2-drop .select2-search {
+    width: 100%;
+}
+
+.select2-drop .select2-search input.select2-input {
+    width: 100% !important;
+    min-width: 100% !important;
+    box-sizing: border-box;
+}

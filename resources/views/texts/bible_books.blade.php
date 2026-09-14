@@ -15,13 +15,16 @@
             <h3>{{ __('general.lang') }} {{ $lang }}</h3>
             <ol>
                 @foreach ($lang_books as $book_id => $book_info)
-                <li><a href="{{ route('texts.bible', ['book_id' => $book_id])}}">{{ $book_info['title'] }}</a></p>
+                <li><a href="{{ route('texts.bible', ['book_id' => $book_id])}}">{{ $book_info['title'] }}</a></li>
                 @endforeach
             </ol>
             @endforeach
         </div>
         <div class="col-lg-4">
-            @include('texts._bible_search')
+            <div class='search-form bible-search'>
+                <h3>{{ trans('text.search_by_bible') }}</h3>
+                @include('texts._bible_search')
+            </div>
         </div>
     </div>
 @endsection
@@ -31,7 +34,15 @@
 @endsection
 
 @section('jqueryFunc')
-    $('.select-lang').select2({ width: '100%' });
-    $('.select-bible').select2({ width: '100%' });
+    $('.select-lang').select2({
+            allowClear: true,
+            placeholder: '\u00A0',
+            width: '100%'
+        });
+    $('.select-bible').select2({
+            allowClear: true,
+            placeholder: '\u00A0',
+            width: '100%'
+        });
 @endsection
 

@@ -75,11 +75,27 @@
 @endsection
 
 @section('jqueryFunc')
-    $('.select-lang').select2();
+    $('.select-lang').select2({
+            allowClear: true,
+            placeholder: '\u00A0',
+            width: '100%'
+        });
     selectDialect('search_lang');
-    $('.select-author').select2();
-    $('.select-informant').select2();
-    $('.select-recorder').select2();
+    $('.select-author').select2({
+            allowClear: true,
+            placeholder: '\u00A0',
+            width: '100%'
+        });
+    $('.select-informant').select2({
+            allowClear: true,
+            placeholder: '\u00A0',
+            width: '100%'
+        });
+    $('.select-recorder').select2({
+            allowClear: true,
+            placeholder: '\u00A0',
+            width: '100%'
+        });
     $('.select-event-region').select2({
             allowClear: true,
             placeholder: '{{ trans('text.region') }}',

@@ -10,7 +10,7 @@ use App\Library\Text;
 
 class TextController extends Controller
 {
-    private $dictorpusClient;
+    private DictorpusClient $dictorpusClient;
 
     public function __construct(DictorpusClient $dictorpusClient)
     {
@@ -85,7 +85,8 @@ class TextController extends Controller
 
             'search_corpus' => ['nullable', 'integer', 'min:1'],
             'search_genre' => ['nullable', 'integer', 'min:1'],
-            'search_chapter' => ['nullable', 'integer', 'min:1'],
+            'search_chapter_from' => ['nullable', 'integer', 'min:1'],
+            'search_chapter_to' => ['nullable', 'integer', 'min:1'],
             'search_verse_from' => ['nullable', 'integer', 'min:1'],
             'search_verse_to' => ['nullable', 'integer', 'min:1'],
             'search_year_from' => ['nullable', 'integer', 'min:1', 'max:2100'],
@@ -108,6 +109,7 @@ class TextController extends Controller
             'portion' => (int)($validated['portion'] ?? 10),
             'page' => (int)($validated['page'] ?? 1),
             'with_audio' => (int)($validated['with_audio'] ?? 0),
+            'with_parallel' => (int)($validated['with_parallel'] ?? 0),
             'with_photo' => (int)($validated['with_photo'] ?? 0),
             'with_transtext' => (int)($validated['with_transtext'] ?? 0),
         ];
@@ -117,7 +119,8 @@ class TextController extends Controller
             $params[$k] = trim((string)($validated[$k] ?? ''));
         }
 
-        foreach (['search_corpus', 'search_genre', 'search_chapter', 'search_verse_from', 'search_verse_to', 'search_year_from', 'search_year_to', 'book_id'] as $k) {
+        foreach (['search_corpus', 'search_genre', 'search_chapter_from', 'search_chapter_to', 
+                'search_verse_from', 'search_verse_to', 'search_year_from', 'search_year_to', 'book_id'] as $k) {
             $params[$k] = $validated[$k] ?? null;
         }
 
@@ -225,13 +228,14 @@ class TextController extends Controller
     private function texts(string $corpus, array $url_args)
     {
         $result = $this->dictorpusClient->getTexts($corpus, $url_args);
-        //dd($result);
+        //dd($url_args);
         $texts = $result['data'] ?? [];
         $current_page = $result['current_page'] ?? 1;
         $last_page = $result['last_page'] ?? 1;
         $total = $result['total'] ?? 0;
         $per_page = $result['per_page'] ?? 10;
         $url_args = $result['url_args'] ?? $url_args;
+        //dd($url_args);
 
         $args_by_get = search_values_by_URL($url_args);
 
@@ -285,14 +289,13 @@ class TextController extends Controller
             $books = $this->dictorpusClient->getBibleBooks();
             
             $form_values = $this->dictorpusClient->getTextFormValues([
-                'corpus_id' => $url_args['search_corpus'] ?? null,
-                'genre_id' => null
+                'corpus_id' => $url_args['search_corpus'] ?? null
             ]);
 
             return view('texts.bible_books', compact('books', 'form_values'));
         }
 
-        $bible_texts = $this->dictorpusClient->getBibleTexts([
+        $bible_texts = $this->dictorpusClient->getBibleBook([
             'publication_id' => $book_id
         ]);
         //dd($bible_texts['texts']);
@@ -302,10 +305,28 @@ class TextController extends Controller
         return view('texts.bible', compact('book_title', 'texts', 'url_args'));
     }
 
-    public function byBible(Request $request)
+    public function bibleTexts(Request $request)
     {
         $url_args = $this->searchArgs($request);
-        $url_args['search_corpus'] = 2;
+//dd($url_args);
+        $result = $this->dictorpusClient->getBibleTexts($url_args);
+
+        $texts = $result['data'] ?? [];
+        $current_page = $result['current_page'] ?? 1;
+        $last_page = $result['last_page'] ?? 1;
+        $total = $result['total'] ?? 0;
+        $per_page = $result['per_page'] ?? 10;
+        $url_args = $result['url_args'] ?? $url_args;
+
+        $args_by_get = search_values_by_URL($url_args);
+
+        $form_values = $this->dictorpusClient->getTextFormValues([
+            'corpus_id' => $url_args['search_corpus'] ?? null
+        ]);
+
+        return view('texts.bible_texts', 
+            compact('current_page', 'form_values', 'last_page', 'per_page', 
+                    'texts', 'total', 'args_by_get', 'url_args'));
     }
 
     public function monuments(Request $request)

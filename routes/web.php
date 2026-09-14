@@ -35,7 +35,7 @@ Route::group(
         Route::get('/oikonyms/', [OikonymController::class, 'index'])->name('oikonyms.index');
 
         Route::get('/texts/bible', [TextController::class, 'bible'])->name('texts.bible');
-        Route::get('/texts/by_bible', [TextController::class, 'byBible'])->name('texts.by_bible');
+        Route::get('/texts/bible_texts', [TextController::class, 'bibleTexts'])->name('texts.bible_texts');
         Route::get('/texts/dialects', [TextController::class, 'dialects'])->name('texts.dialects');
         Route::get('/texts/districts', [TextController::class, 'districts'])->name('texts.districts');
         Route::get('/texts/ethnographic', [TextController::class, 'ethnographic'])->name('texts.ethnographic');
