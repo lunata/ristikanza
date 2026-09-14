@@ -260,6 +260,16 @@ s {
     flex: 0 0 auto;
 }
 
+.bible-search--wide .bible-search-portion #portion {
+    flex: 0 0 60px;
+    width: 60px;
+    height: 36px !important;
+    min-height: 36px !important;
+    padding-top: 0 !important;
+    padding-bottom: 0 !important;
+    line-height: 34px;
+}
+
 /*
  * На сравнительно узком экране не сжимаем кнопки
  * и не ломаем элементы друг о друга: переносим
