@@ -61,6 +61,14 @@
             <i>{!! join("<br>\n", $text['source']) !!}</i>
         @endif
 
+        @if ($text['biblical_passage'])
+        <p><b>{{ trans('text.biblical_passage') }}:</b> {{ $text['biblical_passage'] }}</p>
+        @endif
+
+        @if ($text['parallel_passages'])
+        <p><b>{{ trans('text.parallel_passages') }}:</b> {{ $text['parallel_passages'] }}</p>
+        @endif
+
         @if ($text['mentioned_places'])
         <p><b>{{trans('text.place_mentioned')}}:</b> <i>{{ $text['mentioned_places'] }}</i></p>
         @endif

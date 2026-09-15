@@ -2,9 +2,10 @@
 return [
     'archive_krc' => 'ф/архив ИЯЛИ КарНЦ РАН',
     'author_or_trans' => 'Автор или переводчик',
-    
+
     'book' => 'Книга',
     'bible_passage' => 'Библейская ссылка',
+    'biblical_passage' => 'Библейский текст',
 
     'celebration_places' => 'Населенные пункты, к которым относятся упомянутые праздники',
     'chapter' => 'Глава',
@@ -38,6 +39,7 @@ return [
     'of_informant_birth' => 'рожд. информанта',
     'of_recording' => 'записи',
 
+    'parallel_passages' => 'Параллельные места',
     'place' => 'Населенный пункт',
     'place_mentioned' => 'упомянутые поселения',
     'place_of_informant_birth' => 'Место рождения информанта',

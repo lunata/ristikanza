@@ -5,7 +5,8 @@ return [
 
     'book' => 'Book',
     'bible_passage' => 'Bible passage',
-    
+    'biblical_passage' => 'Biblical passage',
+
     'celebration_places' => 'Settlements to which the holidays mentioned',
     'chapter' => 'Chapter',
     'chapters' => 'Chapters',
@@ -38,6 +39,7 @@ return [
     'of_informant_birth' => 'of informant birth',
     'of_recording' => 'of recording',
 
+    'parallel_passages' => 'Parallel passages',
     'place' => 'Settlement',
     'place_mentioned' => 'settlements mentioned',
     'place_of_informant_birth' => 'Place of informant birth',
