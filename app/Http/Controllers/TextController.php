@@ -311,7 +311,8 @@ class TextController extends Controller
             'publication_id' => $book_id
         ]);
         //dd($bible_texts['texts']);
-        $texts = $this->sortTextsByPage($bible_texts['texts']);
+        //$texts = $this->sortTextsByPage($bible_texts['texts']);
+        $texts = $bible_texts['texts'];
         $book_title = $bible_texts['book_title'];
 
         return view('texts.bible', compact('book_title', 'texts', 'url_args'));
