@@ -23,11 +23,10 @@
     color: #746c64;
 }
 
-.btn-primary
-{
-  background-color: #3c65ad;
-  border-color: #3c65ad;
-  color: rgba(255,255,255,.7) !important;
+.btn-primary {
+    background-color: #3c65ad;
+    border-color: #3c65ad;
+    color: rgba(255, 255, 255, .7) !important;
 }
 
 .btn-danger {
@@ -45,30 +44,25 @@
     background-color: #49a76e;
 }
 
-.btn-info
-{
-  background-color: #5aa3d0;
-  border-color: #5aa3d0;
-  color: rgba(255,255,255,.7) !important;
+.btn-info {
+    background-color: #5aa3d0;
+    border-color: #5aa3d0;
+    color: rgba(255, 255, 255, .7) !important;
 }
 
-.btn-info:hover
-{
-  background-color: #4397ca;
-  border-color: #4397ca;
-  color: rgba(255,255,255,.7) !important;
+.btn-info:hover {
+    background-color: #4397ca;
+    border-color: #4397ca;
+    color: rgba(255, 255, 255, .7) !important;
 }
 
-.btn.bvi-open {
-    font-size: 0.8rem;
+.btn-primary.disabled,
+.btn-primary:disabled {
+    color: #000;
+    background-color: #ccc;
+    border-color: #ccc;
 }
 
-.btn-primary.disabled, .btn-primary:disabled
-{
-  color: #000;
-  background-color: #ccc;
-  border-color: #ccc;
-}
 .help-icon {
     color: #c9302c;
     cursor: pointer;
@@ -109,8 +103,4 @@
     font-size: 20px;
 }
 
-@media screen and (min-width: 768px) {
-    .btn.bvi-open {
-        font-size: 1rem;
-    }
-}
+@media screen and (min-width: 768px) {}

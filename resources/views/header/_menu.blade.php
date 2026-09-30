@@ -32,16 +32,11 @@
                 </a>
 
                 <div class="dropdown-menu" aria-labelledby="navbarDropdown1">
-            @foreach (['ethnographic', 'folklore', 'bible', 'monuments'] as $title)
+            @foreach (['bible', 'monuments', 'folklore', 'ethnographic'] as $title)
                     <a  class="dropdown-item" href="{{ route('texts.'.$title) }}">{{ __('navigation.'.$title) }}</a>
             @endforeach
+                    <a  class="dropdown-item" href="{{ route('texts.map') }}">{{ __('navigation.map_full') }}</a>
                 </div>
-            </li>
-
-            <li class="nav-item dropdown"> {{-- КАРТА --}}
-                <a href="{{ route('texts.map') }}" class="nav-link" id="navbarDropdown1" role="button" aria-haspopup="true" aria-expanded="false">
-                    {{ __('navigation.map') }}
-                </a>
             </li>
 
             <li class="nav-item dropdown"> {{-- УЧЕБНИКИ --}}

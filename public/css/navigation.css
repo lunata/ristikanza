@@ -46,6 +46,7 @@
 
 .navbar-dark .navbar-nav .nav-link {
     color: rgba(255, 255, 255, .7);
+    padding-left: 20px;
 }
 
 .dropdown-menu {
@@ -236,12 +237,12 @@
     padding: 0;
 }
 
-.pagination .pagination > li {
+.pagination .pagination>li {
     display: inline-block;
 }
 
-.pagination .pagination > li > a,
-.pagination .pagination > li > span {
+.pagination .pagination>li>a,
+.pagination .pagination>li>span {
     display: inline-flex;
     align-items: center;
     justify-content: center;
@@ -257,34 +258,34 @@
     text-decoration: underline;
 }
 
-.pagination .pagination > li > a:hover,
-.pagination .pagination > li > a:focus {
+.pagination .pagination>li>a:hover,
+.pagination .pagination>li>a:focus {
     background: #f2d8da;
     color: #65262b;
     text-decoration: none;
 }
 
-.pagination .pagination > li.active > span {
+.pagination .pagination>li.active>span {
     background: #8d3d43;
     color: #ffffff;
     text-decoration: none;
 }
 
-.pagination .pagination > li.disabled > span {
+.pagination .pagination>li.disabled>span {
     color: #9d9191;
     cursor: default;
     text-decoration: none;
 }
 
-.pagination .pagination > li.disabled:not(.active) > span {
+.pagination .pagination>li.disabled:not(.active)>span {
     min-width: auto;
     padding-inline: 0;
 }
 
-.pagination > li.active > a,
-.pagination > li.active > span,
-.pagination > li > a[aria-current="page"],
-.pagination > li > span[aria-current="page"] {
+.pagination>li.active>a,
+.pagination>li.active>span,
+.pagination>li>a[aria-current="page"],
+.pagination>li>span[aria-current="page"] {
     display: inline-flex;
     align-items: center;
     justify-content: center;
@@ -300,21 +301,18 @@
     .navbar-expand-lg .navbar-nav .nav-link {
         padding: .5rem 1.1rem;
     }
-}
 
-@media screen and (min-width: 1200px) {
     .nav-link {
         font-size: 1.1rem;
     }
 }
 
-/*@media screen and (min-width: 350px) {
-}
+@media screen and (min-width: 1200px) {
+    .navbar-expand-lg .navbar-nav .nav-link {
+        padding: .7rem 2rem;
+    }
 
-@media screen and (min-width: 575px) {
+    .lang-sm {
+        margin: 15px 25px 0 0;
+    }
 }
-
-@media screen and (min-width: 768px) {
-}
-
-*/

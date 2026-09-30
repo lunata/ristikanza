@@ -8,7 +8,7 @@ return [
     'folklore' => 'Folklore',
     'library' => 'Library',
     'map' => 'Map',
-    'map_full' => 'Map of the Festive Culture of Southern Karelia',
+    'map_full' => 'Festive Culture of Southern Karelia',
     'monuments' => 'Written monuments',
     'next_page' => 'Next page',
     'oikonyms' => 'Oikonyms',
