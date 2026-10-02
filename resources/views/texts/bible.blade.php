@@ -2,6 +2,7 @@
 
 @section('title', trans('navigation.texts'))
 @section('h1', trans('navigation.bible'))
+@section('h1_link', route('texts.bible'))
 
 @section('headExtra')
     {!! css('texts') !!}

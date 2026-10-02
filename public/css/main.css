@@ -37,6 +37,15 @@ h1 {
     text-align: center;
 }
 
+h1 a {
+    color: #436286;
+    text-decoration: none;
+}
+
+h1 a:hover {
+    color: #436286;
+}
+
 h2 {
     font-size: 1.3rem;
 }

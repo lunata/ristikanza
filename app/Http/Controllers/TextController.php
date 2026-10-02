@@ -208,7 +208,7 @@ class TextController extends Controller
     public function show(int $id, Request $request)
     {
         $text = $this->dictorpusClient->getText($id);
-        //dd($text);
+
         if (isset($text['source']['number'])) {
             $text['source']['number'] = '<b>' . trans('text.archive_krc') . ':</b> ' . $text['source']['number'];
         }

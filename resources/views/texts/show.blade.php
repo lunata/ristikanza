@@ -2,6 +2,7 @@
 
 @section('title', trans('navigation.texts'))
 @section('h1', $h1)
+@section('h1_link', $corpus_route)
 
 @section('headExtra')
         {!! css('select2.min') !!}

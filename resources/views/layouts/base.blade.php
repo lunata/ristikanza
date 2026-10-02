@@ -20,7 +20,15 @@
 @include('errors._errmsg')
 
         @hasSection('h1')
-        <h1>@yield('h1')</h1>
+        <h1>
+            @hasSection('h1_link')
+            <a href="@yield('h1_link')">
+            @endif
+                @yield('h1')
+            @hasSection('h1_link')
+            </a>
+            @endif
+        </h1>
         @endif
 
         @hasSection('search_form')
