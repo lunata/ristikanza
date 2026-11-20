@@ -14,6 +14,7 @@ return [
     'oikonyms' => 'Ойконимы',
     'oikonyms_full' => 'Ойконимы Северного Приладожья',
     'participants' => 'Участники',
+    'participants_title' => 'Коллектив проекта',
     'previous_page' => 'Предыдущая страница',
     'publications' => 'Публикации',
     'publications_full' => 'Публикации участников по теме проекта',

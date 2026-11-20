@@ -14,6 +14,7 @@ return [
     'oikonyms' => 'Oikonyms',
     'oikonyms_full' => 'Oikonyms of Northern Ladoga',
     'participants' => 'Participants',
+    'participants_title' => 'Project team',
     'previous_page' => 'Previous page',
     'publications' => 'Publications',
     'publications_full' => 'Publications by participants on the project topic',

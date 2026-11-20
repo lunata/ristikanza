@@ -4,5 +4,5 @@
 @section('h1', @trans('navigation.publications_full'))
 
 @section('main')
+{!! trans('page.publications') !!}
 @endsection
-
